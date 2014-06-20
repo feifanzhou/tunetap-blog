@@ -18,6 +18,8 @@ class Post < ActiveRecord::Base
   belongs_to :contributor
   has_many :tagged_texts
 
+  validates :contributor_id, presence: true
+
   def author
     return self.contributor
   end

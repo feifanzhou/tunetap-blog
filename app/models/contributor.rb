@@ -17,4 +17,9 @@ class Contributor < ActiveRecord::Base
 
   has_many :posts
   has_many :tags
+
+  validates :is_admin, presence: true
+  validates :name, presence: true, uniqueness: { case_sensitive: false }
+  validates :email, presence: true, uniqueness: { case_sensitive: false }
+  validates :password_digest, presence: true
 end

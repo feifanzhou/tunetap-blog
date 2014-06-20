@@ -16,4 +16,8 @@ class TaggedText < ActiveRecord::Base
 
   has_many :tags, through: :tag_ranges
   belongs_to :post
+
+  validates :content_type, presence: true, inclusion: { in: ['artist'] }
+  validates :content, presence: true
+  validates :post_id, presence: true
 end

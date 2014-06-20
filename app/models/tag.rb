@@ -17,6 +17,9 @@ class Tag < ActiveRecord::Base
   has_many :tagged_texts, through: :tag_ranges
   belongs_to :contributor
 
+  validates :name, presence: true, uniqueness: { case_sensitive: false }
+  validates :contributor_id, presence: true
+
   def creator
     return self.contributor
   end
