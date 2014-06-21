@@ -22,4 +22,8 @@ class Contributor < ActiveRecord::Base
   validates :name, presence: true, uniqueness: { case_sensitive: false }
   validates :email, presence: true, uniqueness: { case_sensitive: false }
   validates :password_digest, presence: true
+
+  def posts_for_page(page = 1, posts_per_page = 10)
+    return self.posts.limit(posts_per_page).offset(page - 1)
+  end
 end

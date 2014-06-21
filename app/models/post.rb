@@ -17,8 +17,11 @@
 class Post < ActiveRecord::Base
   belongs_to :contributor
   has_many :tagged_texts
+  has_many :tag_ranges, through: :tagged_texts
+  has_many :tags, ->  { uniq }, through: :tagged_texts
 
-  validates :contributor_id, presence: true
+  validates :contributor_id, presence: true, numericality: { greater_than: 0 }
+  validates :player_type, presence: true, inclusion: { in: ['soundcloud', 'bopfm'] }
 
   def author
     return self.contributor

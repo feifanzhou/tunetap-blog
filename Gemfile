@@ -27,6 +27,15 @@ group :development do
   gem 'annotate'
 end
 
+group :test do
+  gem 'rspec-rails'
+  gem 'rspec-its'
+  # gem 'capybara'
+  # gem 'capybara-webkit'
+  gem 'factory_girl_rails'
+  gem 'fuubar', '~> 2.0.0.rc1'
+end
+
 group :assets do
   gem 'sass-rails', '~> 4.0.3'
   gem 'coffee-rails', '~> 4.0.0'

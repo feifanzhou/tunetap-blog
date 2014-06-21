@@ -12,11 +12,12 @@
 #
 
 class TagRange < ActiveRecord::Base
+  # FIXME — Add constraint that TaggedText cannot have more than one of each tag
   belongs_to :tagged_text
   belongs_to :tag
 
-  validates :tagged_text_id, presence: true
-  validates :tag_id, presence: true
+  validates :tagged_text_id, presence: true, numericality: { greater_than: 0 }
+  validates :tag_id, presence: true, numericality: { greater_than: 0 }
   validates :start, presence: true, numericality: { only_integer: true }
   validates :length, presence: true, numericality: { only_integer: true }
 end
