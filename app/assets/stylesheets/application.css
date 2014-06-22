@@ -15,3 +15,24 @@
  *= require foundation_and_overrides
 
  */
+
+#container {
+  clear: both;
+  margin: auto;
+  width: 700px;
+}
+#left {
+  display: inline-block;
+  float: left;
+  width: 52px;
+}
+#content {
+  display: inline-block;
+  width: 596px;
+}
+#right {
+  display: inline-block;
+  float: right;
+  text-align: right;
+  width: 52px;
+}
