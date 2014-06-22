@@ -1,0 +1,41 @@
+/*
+  Place all the styles related to the matching controller here.
+  They will automatically be included in application.css.
+*/
+
+@import 'shared';
+
+.Post {
+  border-bottom: 1px dotted transparentize(black, 0.85);
+  padding: 1.5em 0;
+  position: relative;
+  width: 568px;
+  &.Tile {
+    border-bottom: none;
+    @include vendor-prefix(box-shadow, '0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset');
+    padding: 14px;
+    width: 596px;
+  }
+  &.BopPost {
+    .PostImage {
+      display: inline-block;
+      height: 202px;
+      margin-right: 5px;
+      vertical-align: top;
+      width: 202px;
+    }
+    .PostEmbed {
+      display: inline-block;
+      height: 202px;
+    }
+    .PostMeta {
+      color: #777;
+    }
+    .DownloadButton {
+    }
+    .CommentLink {
+      display: inline-block;
+      // margin-left: 8px;
+    }
+  }
+}

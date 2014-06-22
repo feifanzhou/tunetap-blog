@@ -22,6 +22,7 @@ class Post < ActiveRecord::Base
 
   validates :contributor_id, presence: true, numericality: { greater_than: 0 }
   validates :player_type, presence: true, inclusion: { in: ['soundcloud', 'bopfm'] }
+  # FIXME — Make sure post has title
 
   def embed_color
     return 'F16214'
@@ -39,7 +40,7 @@ class Post < ActiveRecord::Base
   def process_player_embed(embed_link)
   end
 
-  def self.posts_for_page(page = 1, posts_for_page = 10)
+  def self.posts_for_page(page = 1, posts_per_page = 10)
     Post.order(created_at: :desc).limit(posts_per_page).offset(page - 1).to_a
   end
 

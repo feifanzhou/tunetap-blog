@@ -6,14 +6,23 @@
 
     <title><%= content_for?(:title) ? yield(:title) << ' | Camelback Music' : 'Camelback Music' %></title>
 
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600' rel='stylesheet' type='text/css' />
     <%= stylesheet_link_tag    "application" %>
     <%= javascript_include_tag "vendor/modernizr" %>
     <%= csrf_meta_tags %>
   </head>
 
   <body>
-
-    <%= yield %>
+    <div id='content'>
+      <div id='left'>
+        Left
+      </div>
+      <div id='content'>
+        <%= yield %>
+      </div>
+      <div id='right'>
+        Right
+      </div>
     <%= javascript_include_tag "application" %>
   </body>
 </html>

@@ -1,23 +1,30 @@
-<div class='row'>
+<div class='Post Tile BopPost'>
   <div>
     <%= image_tag(post.image_url, class: 'PostImage') %>
-    <%= post.player_embed %>
+    <span class='PostEmbed'>
+      <%= post.player_embed.html_safe %>
+    </span>
   </div>
-  <div class='small-12 columns'>
+  <div class=''>
     <%= post.title.to_html('h1') %>
-    <%= post.body.to_html('p') %>
+    <% if !post.body.blank? %>
+      <%= post.body.to_html('p') %>
+    <% end %>
     <p class='PostMeta'>Posted by <%= link_to post.author.name, post.author.path_with_slug %> &bull; <%= local_time_ago(post.created_at) %></p>
   </div>
-  <footer>
-    <span class='SocialActions'>
+  <footer class='clearfix'>
+    <span class='SocialActions left'>
       <%= post.twitter_button %>
       <%= post.facebook_buttons %>
     </span>
-    <span class='DownloadButton'>
-      <a href='<%= post.download_link %>' class='round button' target download>Download</a>
-    </span>
-    <span class='CommentLink'>
-      <%= link_to 'Say something', '#', title: 'I\'m giving up on you' %>
+    <span class='PostActions right'>
+      <span class='DownloadButton'>
+        <a href='<%= post.download_link %>' class='' target download>Download</a>
+      </span>
+      &bull;
+      <span class='CommentLink'>
+        <%= link_to 'Say something&hellip;'.html_safe, '#', title: 'I\'m giving up on you' %>
+      </span>
     </span>
   </footer>
 </div>

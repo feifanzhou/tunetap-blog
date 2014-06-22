@@ -20,7 +20,8 @@
 // Since the typical default browser font-size is 16px, that makes the calculation for grid size.
 // If you want your base font-size to be different and not have it affect the grid breakpoints,
 // set $rem-base to $base-font-size and make sure $base-font-size is a px value.
-// $base-font-size: 100%;
+$base-font-size: 14px;
+$rem-base: $base-font-size;
 
 // The $base-font-size is 100% while $base-line-height is 150%
 // $base-line-height: 150%;
@@ -46,8 +47,8 @@
 
 // We use these to control various global styles
 // $body-bg: #fff;
-// $body-font-color: #222;
-// $body-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+$body-font-color: #555;
+$body-font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 // $body-font-weight: $font-weight-normal;
 // $body-font-style: normal;
 
@@ -60,7 +61,7 @@
 // $default-float: left;
 
 // We use these as default colors throughout
-// $primary-color: #008CBA;
+$primary-color: #F16214;
 // $secondary-color: #e7e7e7;
 // $alert-color: #f04124;
 // $success-color: #43AC6A;
@@ -125,16 +126,16 @@
 
 // We use these to control header font styles
 // $header-font-family: $body-font-family;
-// $header-font-weight: $font-weight-normal;
+$header-font-weight: 600;
 // $header-font-style: normal;
-// $header-font-color: #222;
-// $header-line-height: 1.4;
-// $header-top-margin: .2rem;
-// $header-bottom-margin: .5rem;
+$header-font-color: #333;
+$header-line-height: 1.2;
+$header-top-margin: rem-calc(8);
+$header-bottom-margin: rem-calc(13);
 // $header-text-rendering: optimizeLegibility;
 
 // We use these to control header font sizes
-// $h1-font-size: rem-calc(44);
+$h1-font-size: rem-calc(22);
 // $h2-font-size: rem-calc(37);
 // $h3-font-size: rem-calc(27);
 // $h4-font-size: rem-calc(23);
@@ -164,8 +165,8 @@
 // $paragraph-font-family: inherit;
 // $paragraph-font-weight: $font-weight-normal;
 // $paragraph-font-size: 1rem;
-// $paragraph-line-height: 1.6;
-// $paragraph-margin-bottom: rem-calc(20);
+$paragraph-line-height: 1.4;
+$paragraph-margin-bottom: rem-calc(13);
 // $paragraph-aside-font-size: rem-calc(14);
 // $paragraph-aside-line-height: 1.35;
 // $paragraph-aside-font-style: italic;
@@ -345,7 +346,7 @@
 // We use these to build padding for buttons.
 // $button-tny: rem-calc(10);
 // $button-sml: rem-calc(14);
-// $button-med: rem-calc(16);
+$button-med: rem-calc(4);
 // $button-lrg: rem-calc(18);
 
 // We use this to control the display property.
@@ -358,7 +359,7 @@
 // $button-font-color-alt: #333;
 // $button-font-tny: rem-calc(11);
 // $button-font-sml: rem-calc(13);
-// $button-font-med: rem-calc(16);
+$button-font-med: rem-calc(13);
 // $button-font-lrg: rem-calc(20);
 // $button-font-weight: $font-weight-normal;
 // $button-font-align: center;
@@ -374,7 +375,7 @@
 
 // We use this to set the default radius used throughout the core.
 // $button-radius: $global-radius;
-// $button-round: $global-rounded;
+// $button-round: $global-round;
 
 // We use this to set default opacity for disabled buttons.
 // $button-disabled-opacity: 0.7;
