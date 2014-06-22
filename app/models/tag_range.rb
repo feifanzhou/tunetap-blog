@@ -20,4 +20,5 @@ class TagRange < ActiveRecord::Base
   validates :tag_id, presence: true, numericality: { greater_than: 0 }
   validates :start, presence: true, numericality: { only_integer: true }
   validates :length, presence: true, numericality: { only_integer: true }
+  # FIXME — Before save, ensure that start and length are within range of TaggedText
 end
