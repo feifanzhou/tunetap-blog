@@ -8,6 +8,7 @@
 #  contributor_id :integer
 #  created_at     :datetime
 #  updated_at     :datetime
+#  tag_type       :string(255)
 #
 
 class Tag < ActiveRecord::Base
@@ -21,12 +22,17 @@ class Tag < ActiveRecord::Base
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
   validates :contributor_id, presence: true, numericality: { greater_than: 0 }
+  validates :tag_type, presence: true, inclusion: { in: ['artist'] }
 
   def creator
     return self.contributor
   end
 
-  include PostHelper
+  def path_with_slug
+    return "/tags/#{ self.id }/#{ self.name.parameterize }"
+  end
+
+  include PostsHelper
   def posts_for_page(page = 1, posts_per_page = 10)
     get_posts_by_tag(self, page, posts_per_page)
   end

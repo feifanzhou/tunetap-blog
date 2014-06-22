@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: tags
+#
+#  id             :integer          not null, primary key
+#  name           :string(255)
+#  description    :text
+#  contributor_id :integer
+#  created_at     :datetime
+#  updated_at     :datetime
+#  tag_type       :string(255)
+#
+
 require 'rails_helper'
 
 RSpec.describe Tag, :type => :model do
@@ -7,6 +20,10 @@ RSpec.describe Tag, :type => :model do
   it { should be_valid }
   it { should respond_to :name }
   it { should respond_to :contributor_id }
+
+  it 'generates the right slugged path' do
+    expect(tag.path_with_slug).to eq("/tags/#{ tag.id }/lana-del-rey")
+  end
 end
 
 describe 'Tag' do

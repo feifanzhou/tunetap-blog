@@ -19,7 +19,12 @@ class TaggedText < ActiveRecord::Base
   has_many :tags, through: :tag_ranges
   belongs_to :post
 
-  validates :content_type, presence: true, inclusion: { in: ['artist'] }
+  validates :content_type, presence: true, inclusion: { in: ['title', 'body'] }
   validates :content, presence: true
   validates :post_id, presence: true, numericality: { greater_than: 0 }
+
+  include TaggedTextsHelper
+  def to_html(in_tag = 'span')
+    return tagged_text_to_html(self, in_tag)
+  end
 end
