@@ -36,11 +36,10 @@ group :test do
   gem 'fuubar', '~> 2.0.0.rc1'
 end
 
-group :assets do
-  gem 'sass-rails', '~> 4.0.3'
-  gem 'coffee-rails', '~> 4.0.0'
-  gem 'jquery-rails'
-end
+gem 'sass-rails', '~> 4.0.3'
+gem 'coffee-rails', '~> 4.0.0'
+gem 'jquery-rails'
+gem 'foundation-rails'
 
 # Use unicorn as the app server
 # gem 'unicorn'
