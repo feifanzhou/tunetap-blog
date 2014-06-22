@@ -41,14 +41,15 @@ group :development, :test do
   gem 'figaro'
 end
 
+group :production do
+  gem 'unicorn'
+end
+
 gem 'sass-rails', '~> 4.0.3'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'foundation-rails'
 gem 'local_time'
-
-# Use unicorn as the app server
-# gem 'unicorn'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
