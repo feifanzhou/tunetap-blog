@@ -10,7 +10,14 @@
   </div>
   <footer>
     <span class='SocialActions'>
+      <%= post.twitter_button %>
       <%= post.facebook_buttons %>
+    </span>
+    <span class='DownloadButton'>
+      <a href='<%= post.download_link %>' class='round button' target download>Download</a>
+    </span>
+    <span class='CommentLink'>
+      <%= link_to 'Say something', '#', title: 'I\'m giving up on you' %>
     </span>
   </footer>
 </div>
