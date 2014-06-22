@@ -22,6 +22,10 @@ RSpec.describe Contributor, :type => :model do
   it { should respond_to :name }
   it { should respond_to :email }
   it { should respond_to :password_digest }
+
+  it 'generates the right slugged path' do
+    expect(contributor.path_with_slug).to eq("/contributors/#{ contributor.id }/mike-falb")
+  end
 end
 
 describe 'Contributor' do

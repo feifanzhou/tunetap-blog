@@ -40,6 +40,7 @@ gem 'sass-rails', '~> 4.0.3'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'foundation-rails'
+gem 'local_time'
 
 # Use unicorn as the app server
 # gem 'unicorn'

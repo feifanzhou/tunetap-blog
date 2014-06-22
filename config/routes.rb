@@ -8,7 +8,9 @@ Rails.application.routes.draw do
   resources :posts
   get '/posts/:id/:slug' => 'posts#show'
   resources :tags
-  get '/tags/:id/slug' => 'tags#show'
+  get '/tags/:id/:slug' => 'tags#show'
+  resources :contributors
+  get '/contributors/:id/:slug' => 'contributors#show'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
