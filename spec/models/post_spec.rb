@@ -40,6 +40,24 @@ RSpec.describe Post, :type => :model do
     # Now post has a title
     expect(post.path_with_slug).to eq("/posts/#{ post.id }/lorem-ipsum")
   end
+
+  it 'generates the right Facebook buttons' do
+    title = FactoryGirl.build :tagged_title
+    title.post = post
+    title.save
+    # Now post has a title
+    expected = "<div class='fb-like' data-href='http://localhost:3000/posts/#{ post.id }/lorem-ipsum' data-layout='button_count' data-action='like' data-show-faces='false' data-share='true'></div>"
+    expect(post.facebook_buttons).to eq(expected)
+  end
+
+  it 'generates the right Twitter button' do
+    title = FactoryGirl.build :tagged_title
+    title.post = post
+    title.save
+    # Now post has a title
+    expected = "<a href='http://localhost:3000/posts/#{ post.id }/lorem-ipsum' class='twitter-share-button' data-text='To be tweeted' data-via='CamelbackMusic'>Tweet</a> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>"
+    expect(post.twitter_button).to eq(expected)
+  end
 end
 
 describe 'Post title' do

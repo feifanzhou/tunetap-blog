@@ -20,5 +20,6 @@ FactoryGirl.define do
     image_url 'https://scontent-b-iad.xx.fbcdn.net/hphotos-ash3/t1.0-9/1969121_677884932255138_1459446033_n.jpg'
     player_embed 'soundcloud.com'
     player_type 'soundcloud'
+    twitter_text 'To be tweeted'
   end
 end

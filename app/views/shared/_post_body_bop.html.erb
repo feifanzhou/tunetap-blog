@@ -1,7 +1,16 @@
 <div class='row'>
+  <div>
+    <%= image_tag(post.image_url, class: 'PostImage') %>
+    <%= post.player_embed %>
+  </div>
   <div class='small-12 columns'>
     <%= post.title.to_html('h1') %>
     <%= post.body.to_html('p') %>
     <p class='PostMeta'>Posted by <%= link_to post.author.name, post.author.path_with_slug %> &bull; <%= local_time_ago(post.created_at) %></p>
   </div>
+  <footer>
+    <span class='SocialActions'>
+      <%= post.facebook_buttons %>
+    </span>
+  </footer>
 </div>

@@ -58,4 +58,12 @@ class Post < ActiveRecord::Base
   def body
     self.tagged_texts.where('content_type = ?', 'body').first
   end
+
+  include PostsHelper
+  def facebook_buttons
+    fb_buttons_for_post(self)
+  end
+  def twitter_button
+    twitter_button_for_post(self)
+  end
 end
