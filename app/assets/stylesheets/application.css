@@ -24,15 +24,18 @@
 #left {
   display: inline-block;
   float: left;
+  vertical-align: top;
   width: 52px;
 }
 #content {
   display: inline-block;
+  vertical-align: top;
   width: 596px;
 }
 #right {
   display: inline-block;
   float: right;
   text-align: right;
+  vertical-align: top;
   width: 52px;
 }

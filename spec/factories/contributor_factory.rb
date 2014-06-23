@@ -9,13 +9,14 @@
 #  password_digest :string(255)
 #  created_at      :datetime
 #  updated_at      :datetime
+#  remember_token  :string(255)
 #
 
 FactoryGirl.define do
   factory :contributor do
     is_admin true
     name 'Mike Falb'
-    email 'mike@tunetap.com'
+    email 'Mike@Tunetap.com'
     password_digest 'gastro'
   end
 end

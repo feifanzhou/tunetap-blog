@@ -9,6 +9,7 @@
 #  password_digest :string(255)
 #  created_at      :datetime
 #  updated_at      :datetime
+#  remember_token  :string(255)
 #
 
 require 'rails_helper'
@@ -21,7 +22,10 @@ RSpec.describe Contributor, :type => :model do
   it { should respond_to :is_admin }
   it { should respond_to :name }
   it { should respond_to :email }
+  its(:email) { should eq('mike@tunetap.com') }
   it { should respond_to :password_digest }
+  it { should respond_to :remember_token }
+  its(:remember_token) { should be_truthy }
 
   it 'generates the right slugged path' do
     expect(contributor.path_with_slug).to eq("/contributors/#{ contributor.id }/mike-falb")
