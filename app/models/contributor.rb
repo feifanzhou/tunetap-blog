@@ -21,15 +21,16 @@ class Contributor < ActiveRecord::Base
   has_many :sent_invitations, class_name: 'Invitation', foreign_key: 'inviter_id'
   has_many :received_invitations, class_name: 'Invitation', foreign_key: 'recipient_id'
 
-  before_create { create_remember_token if (self.remember_token.blank? && self.password_digest && defined?(self.password_digest)) }
+  before_validation { create_remember_token if (self.remember_token.blank? && self.password_digest && defined?(self.password_digest)) }
   before_create { |user| user.email = user.email.downcase }
+  before_create { self.is_admin = (Contributor.count < 1) if self.is_admin.nil? }
 
-  validates :is_admin, presence: true
+  # FIXME — Validation tripping things up with more than one contributor
+  # validates :is_admin, presence: true
   validates :name, presence: true, uniqueness: { case_sensitive: false }
   validates :email, presence: true, uniqueness: { case_sensitive: false }
   validates :password_digest, presence: true
-  # FIXME — Remember token validation not working
-  # validates :remember_token, presence: true, uniqueness: { case_sensitive: false }
+  validates :remember_token, presence: true, uniqueness: { case_sensitive: false }
 
   has_secure_password validations: false # Remove need for confirmation
 

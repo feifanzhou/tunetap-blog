@@ -1,0 +1,11 @@
+<% provide(:title, 'Welcome to Camelback | Create an account') %>
+<%= form_for Contributor.new do |c| %>
+  <%= hidden_field_tag 'access_code', @access_code %>
+  <%= c.label :name %>
+  <%= c.text_field :name, placeholder: 'Bob Loblaw' %>
+  <%= c.label :email %>
+  <%= c.email_field :email, placeholder: 'bob@bobloblawslawblog.info' %>
+  <%= c.label :password %>
+  <%= c.password_field :password, placeholder: 'letmein' %>
+  <%= c.submit 'Get started', class: 'radius button expand' %>
+<% end %>

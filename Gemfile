@@ -31,8 +31,8 @@ end
 group :test do
   gem 'rspec-rails'
   gem 'rspec-its'
-  # gem 'capybara'
-  # gem 'capybara-webkit'
+  gem 'capybara'
+  gem 'capybara-webkit'
   gem 'factory_girl_rails'
   gem 'fuubar', '~> 2.0.0.rc1'
 end
