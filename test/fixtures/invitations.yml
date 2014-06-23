@@ -1,0 +1,25 @@
+# == Schema Information
+#
+# Table name: invitations
+#
+#  id           :integer          not null, primary key
+#  access_code  :string(255)
+#  recipient_id :integer
+#  inviter_id   :integer
+#  created_at   :datetime
+#  updated_at   :datetime
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  access_code: MyString
+  recipient_id: 1
+  inviter: MyString
+  inviter_id: 1
+
+two:
+  access_code: MyString
+  recipient_id: 1
+  inviter: MyString
+  inviter_id: 1

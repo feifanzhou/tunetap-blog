@@ -18,6 +18,8 @@ class Contributor < ActiveRecord::Base
 
   has_many :posts
   has_many :tags
+  has_many :sent_invitations, class_name: 'Invitation', foreign_key: 'inviter_id'
+  has_many :received_invitations, class_name: 'Invitation', foreign_key: 'recipient_id'
 
   before_create { create_remember_token if (self.remember_token.blank? && self.password_digest && defined?(self.password_digest)) }
   before_create { |user| user.email = user.email.downcase }
