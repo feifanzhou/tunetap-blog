@@ -1,6 +1,10 @@
 class PostsController < ApplicationController
   def index
     @posts = Post.posts_for_page(1, 10)
+    @is_logged_in = false
+    if !cookies.signed[:remember_token].blank?
+      @is_logged_in = Contributor.exists?(remember_token: cookies.signed[:remember_token])
+    end
   end
 
   def show

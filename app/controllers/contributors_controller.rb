@@ -18,11 +18,18 @@ class ContributorsController < ApplicationController
     c = Contributor.new(contributor_params)
     c.is_admin = invitation.blank? ? Contributor.count < 1 : invitation.should_be_admin
     c.save
-    redirect_to contributor_path(c)
+    cookies.signed.permanent[:remember_token] = c.remember_token
+    redirect_to root_path
   end
 
   def show
+    if cookies.signed[:remember_token].blank?
+      render status: :unauthorized, text: 'Sign in' and return
+    end
     @contributor = Contributor.find(params[:id])
+    if @contributor.remember_token != cookies.signed[:remember_token]
+      render status: :unauthorized, text: 'You can only view your profile. Sign in' and return
+    end
   end
 
   private

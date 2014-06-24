@@ -61,4 +61,15 @@ describe 'New contributor signup' do
       expect(Contributor.last.is_admin).to be false
     end
   end
+
+  it 'remembers login after creating account' do
+    go_signup('letmein')
+    visit "/contributors/#{ Contributor.last.id }"
+    expect(page.status_code).to eq(200)
+  end
+
+  it 'goes to home page with New Post fields' do
+    go_signup('letmein')
+    expect(page).to have_content 'New post'
+  end
 end

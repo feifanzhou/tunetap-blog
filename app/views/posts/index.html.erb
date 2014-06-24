@@ -1,3 +1,4 @@
+<% if @is_logged_in %>New post<% end %>
 <% @posts.each do |p| %>
   <%= render_post_partial(p) %>
 <% end %>
