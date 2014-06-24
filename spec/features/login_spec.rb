@@ -26,6 +26,6 @@ describe 'Login page' do
       fill_in 'contributor_password', with: 'loginpass'
     end
     click_button 'Login'
-    expect(page).to have_content 'New post'
+    expect(page).to have_content 'New Post'
   end
 end

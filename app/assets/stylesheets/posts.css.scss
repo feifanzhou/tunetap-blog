@@ -7,6 +7,7 @@
 
 .Post {
   border-bottom: 1px dotted transparentize(black, 0.85);
+  margin-bottom: 2.25em;
   padding: 1.5em 0;
   position: relative;
   width: 568px;
@@ -37,5 +38,85 @@
       display: inline-block;
       // margin-left: 8px;
     }
+  }
+}
+
+.NewPost {
+  input.Borderless, textarea.Borderless {
+    background: transparent;
+    border: none;
+    border-bottom: 1px dotted #CCC;
+    box-shadow: none;
+    color: #777;
+    margin-bottom: 0;
+  }
+  .NewPostContentBlock {
+    background: #EEE;
+    border: 1px solid #DDD;
+    border-radius: 3px;
+  }
+  #newPostImage {
+    color: #777;
+    display: inline-block;
+    font-weight: 600;
+    height: 202px;
+    margin-bottom: 1em;
+    margin-right: 5px;
+    position: relative;
+    text-align: center;
+    vertical-align: top;
+    width: 202px;
+    span {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      height: 30%;
+      width: 50%;
+      margin: -15% 0 0 -25%;
+      line-height: 1.25em;
+    }
+  }
+  #newPostPlayerEmbed {
+    display: inline-block;
+    height: 202px;
+    margin-bottom: 1em;
+    position: relative;
+    vertical-align: top;
+    width: 358px;
+    #embedInput {
+      display: block;
+      font-weight: 600;
+      height: 37px;
+      left: 50%;
+      margin: -18px 0 0 -169px;
+      padding: 0;
+      position: absolute;
+      top: 50%;
+      width: 338px;
+    }
+  }
+  #newPostTitle {
+    margin-bottom: 1em;
+    padding: 0.5em 0;
+    #titleInput {
+      border-bottom: none;
+      font-size: 26px;
+      font-weight: 600;
+    }
+  }
+  #newPostContent {
+    #contentInput {
+      resize: none;
+    }
+  }
+  #newPostDownloadLink {
+  }
+  #twitterInput {
+    border-bottom: none;
+  }
+  #newPostPreviewButton {
+    font-weight: 600;
+    margin-bottom: 0.35em;
+    margin-top: 1em;
   }
 }

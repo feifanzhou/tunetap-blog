@@ -70,6 +70,6 @@ describe 'New contributor signup' do
 
   it 'goes to home page with New Post fields' do
     go_signup('letmein')
-    expect(page).to have_content 'New post'
+    expect(page).to have_content 'New Post'
   end
 end
