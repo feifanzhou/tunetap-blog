@@ -5,6 +5,9 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'posts#index'
 
+  get '/contributors/login' => 'contributors#login'
+  post '/contributors/enter' => 'contributors#enter', as: :enter
+
   resources :posts
   get '/posts/:id/:slug' => 'posts#show'
   resources :tags

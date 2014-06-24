@@ -24,12 +24,27 @@ class ContributorsController < ApplicationController
 
   def show
     if cookies.signed[:remember_token].blank?
-      render status: :unauthorized, text: 'Sign in' and return
+      render status: :unauthorized, text: 'You need to sign in' and return
     end
     @contributor = Contributor.find(params[:id])
     if @contributor.remember_token != cookies.signed[:remember_token]
       render status: :unauthorized, text: 'You can only view your profile. Sign in' and return
     end
+  end
+
+  def login
+    if !cookies.signed[:remember_token].blank? && Contributor.exists?(remember_token: cookies.signed[:remember_token])
+      redirect_to root_path and return
+    end
+  end
+  
+  def enter
+    c = Contributor.find_by_email(params[:contributor][:email])
+    if !c.blank? && c.authenticate(params[:contributor][:password])
+      cookies.signed[:remember_token] = c.remember_token
+      redirect_to root_path and return
+    end
+    render text: 'Login error'
   end
 
   private

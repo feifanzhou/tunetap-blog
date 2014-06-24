@@ -5,7 +5,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-author = Contributor.create(is_admin: true, name: 'Feifan Zhou', email: 'feifan@tunetap.com', password_digest: 'gastro')
+author = Contributor.create(is_admin: true, name: 'Feifan Zhou', email: 'feifan@tunetap.com', password: 'letmein')
 post = Post.new(image_url: 'http://ozbeautyexpert.com/wp-content/uploads/2013/07/Lana+Del+Rey++600x600+PNG+diffe.png', player_embed: '<a data-width="358" data-bop-link href="http://bop.fm/s/lana-del-rey/west-coast">Lana Del Rey - West Coast | Listen for free at bop.fm</a><script async src="http://assets.bop.fm/embed.js"></script>', player_type: 'bopfm', twitter_text: 'Camelback test')
 post.contributor = author
 post.save

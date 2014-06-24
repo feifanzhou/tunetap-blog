@@ -1,0 +1,8 @@
+<% provide(:title, 'Welcome to Camelback | Login') %>
+<%= form_for(Contributor.new, url: enter_path) do |c| %>
+  <%= c.label :email %>
+  <%= c.email_field :email, placeholder: 'bob@bobloblawslawblog.info' %>
+  <%= c.label :password %>
+  <%= c.password_field :password, placeholder: 'letmein' %>
+  <%= c.submit 'Login', class: 'radius button expand' %>
+<% end %>

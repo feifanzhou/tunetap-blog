@@ -16,6 +16,6 @@ FactoryGirl.define do
   factory :contributor do
     name 'Mike Falb'
     email 'Mike@Tunetap.com'
-    password_digest 'gastro'
+    password 'loginpass'
   end
 end
