@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   get '/contributors/login' => 'contributors#login'
   post '/contributors/enter' => 'contributors#enter', as: :enter
 
+  get '/tags/search' => 'tags#search'
+
   resources :posts
   get '/posts/:id/:slug' => 'posts#show'
   resources :tags

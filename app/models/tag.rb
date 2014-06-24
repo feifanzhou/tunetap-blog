@@ -36,4 +36,11 @@ class Tag < ActiveRecord::Base
   def posts_for_page(page = 1, posts_per_page = 10)
     get_posts_by_tag(self, page, posts_per_page)
   end
+
+  # Extend to use with class method
+  # http://stackoverflow.com/a/6300506/472768
+  extend TagsHelper
+  def self.match_with(query)
+    tags_like(query)
+  end
 end

@@ -10,10 +10,12 @@
   </div>
   <div class='NewPostContentBlock' id='newPostTitle'>
     <input type='text' class='Borderless' id='titleInput' placeholder='Post title' />
+    <div class='TagSuggestionsContainer' id='titleTagSuggestions'></div>
   </div>
   <div class='NewPostContentBlock'>
     <div id='newPostContent'>
       <textarea class='Borderless' id='contentInput' placeholder='Say something' rows='4'></textarea>
+      <div class='TagSuggestionsContainer' id='contentTagSuggestions'></div>
     </div>
     <div id='newPostDownloadLink'>
       <input type='text' class='Borderless' id='downloadInput' placeholder='Download link' />
@@ -22,5 +24,5 @@
       <input type='text' class='Borderless' id='twitterInput' placeholder='Twitter default text' />
     </div>
   </div>
-  <button class='radius button tiny' id='newPostPreviewButton'>Preview</button>
+  <button class='radius button tiny' id='newPostPublish'>Publish</button>
 </div>

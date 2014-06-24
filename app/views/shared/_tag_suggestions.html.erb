@@ -1,0 +1,5 @@
+<ul class='TagSuggestions'>
+<% tags.each do |tag| %>
+  <li class="<%= tag == tags.first ? 'Selected' : '' %>" data-tag-id='<%= tag.id %>'><%= tag.name %></li>
+<% end %>
+</ul>

@@ -50,6 +50,27 @@
     color: #777;
     margin-bottom: 0;
   }
+  .TagSuggestionsContainer {
+    background: transparentize(white, 0.1);
+    border-bottom: 1px dotted #CCC;
+    left: 1.0em;
+    // padding: 0.5em 0;
+    position: absolute;
+    right: 1.0em;
+    z-index: 1;
+    .TagSuggestions {
+      list-style: none;
+      margin: 0;
+      padding: 0.5em 0;
+      li {
+        padding: 0.35em;
+        &.Selected {
+          background: #F16214;
+          color: white;
+        }
+      }
+    }
+  }
   .NewPostContentBlock {
     background: #EEE;
     border: 1px solid #DDD;
@@ -114,7 +135,7 @@
   #twitterInput {
     border-bottom: none;
   }
-  #newPostPreviewButton {
+  #newPostPublish {
     font-weight: 600;
     margin-bottom: 0.35em;
     margin-top: 1em;
