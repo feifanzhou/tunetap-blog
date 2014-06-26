@@ -42,13 +42,14 @@
 }
 
 .NewPost {
-  input.Borderless, textarea.Borderless {
+  .Borderless {
     background: transparent;
     border: none;
     border-bottom: 1px dotted #CCC;
     box-shadow: none;
     color: #777;
     margin-bottom: 0;
+    resize: none;
   }
   .TagSuggestionsContainer {
     background: transparentize(white, 0.1);
@@ -119,6 +120,7 @@
   #newPostTitle {
     margin-bottom: 1em;
     padding: 0.5em 0;
+    position: relative;
     #titleInput {
       border-bottom: none;
       font-size: 26px;
@@ -126,9 +128,7 @@
     }
   }
   #newPostContent {
-    #contentInput {
-      resize: none;
-    }
+    position: relative;
   }
   #newPostDownloadLink {
   }

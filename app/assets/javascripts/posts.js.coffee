@@ -1,4 +1,7 @@
 # ========== Inline tagging when creating post ==========
+window.TagSug or= {}
+TagSug.startIndex = -1
+TagSug.cursorPositions = {}
 findTagSuggestions = (target) -> 
   content = $(target).val()
   # Split content into words (delimited by spaces)
@@ -12,6 +15,7 @@ findTagSuggestions = (target) ->
   lastPiece = contents[contents.length - 1]
   return if contents.length <= 1 && lastPiece.length < 2
   term = if lastPiece.length > 1 then lastPiece else contents[contents.length - 2] + ' ' + lastPiece
+  TagSug.startIndex = content.length - term.length
   $.ajax ('/tags/search.naked?q=' + term),
     type: 'GET'
     dataType: 'html'
@@ -34,6 +38,14 @@ handleTagFieldKeydown = (event) ->
   if keyCode == 38 || keyCode == 40
     event.preventDefault()
     return false
+saveTextCursorPosition = (event) ->
+  target = event.target
+  # FIXME — Timing issue where if you type too fast
+  # Length updates too quickly
+  # and skips numbers. Repro in Chrome
+  valueLength = target.value.length
+  coords = getCaretCoordinates(target, target.selectionEnd)
+  TagSug.cursorPositions[valueLength + ''] = coords
 handleTagFieldKeyup = (event) ->
   keyCode = event.keyCode
   selectedTag = $('.TagSuggestions .Selected')
@@ -48,15 +60,31 @@ handleTagFieldKeyup = (event) ->
     next = $(selectedTag).next()
     selectTag(selectedTag, next)
   else if keyCode == 13
-    return
+    event.preventDefault()
+    selectTagSuggestion()
   else
+    saveTextCursorPosition(event)
     findTagSuggestions(event.target)
+selectTagSuggestion = ->
+  console.log('Select tag suggestion')
+  activeField = document.activeElement
+  selectedTag = $('.TagSuggestions > li.Selected')
+  tagText = $(selectedTag).text()
+  tagLength = tagText.length
+  newText = activeField.value.slice(0, TagSug.startIndex) + tagText
+  activeField.value = newText
+  # highlightContainer = activeField.parentNode
 $('body').on('keydown', '#titleInput', handleTagFieldKeydown)
 $('body').on('keyup', '#titleInput', handleTagFieldKeyup)
 $('body').on('blur', '#titleInput', -> $('#titleTagSuggestions').html(''))
 $('body').on('keydown', '#contentInput', handleTagFieldKeydown)
 $('body').on('keyup', '#contentInput', handleTagFieldKeyup)
 $('body').on('blur', '#contentInput', -> $('#contentTagSuggestions').html(''))
+$('body').on('mouseover', '.TagSuggestions li', (event) ->
+  $('.TagSuggestions li.Selected').removeClass('Selected')
+  $(event.target).addClass('Selected')
+)
+# FIXME — Get clicking on selected tag to work.
 
 $('body').on('click', '#newPostPublish', ->
   post = {

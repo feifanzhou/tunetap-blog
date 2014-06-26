@@ -28,6 +28,10 @@ class Tag < ActiveRecord::Base
     return self.contributor
   end
 
+  def length
+    return self.name.length
+  end
+
   def path_with_slug
     return "/tags/#{ self.id }/#{ self.name.parameterize }"
   end

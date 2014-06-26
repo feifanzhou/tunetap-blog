@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require foundation
 //= require local_time
+//= require caret-position
 //= require_tree .
 
 $(function(){ $(document).foundation(); });
