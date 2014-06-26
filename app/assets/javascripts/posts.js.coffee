@@ -81,8 +81,9 @@ selectTagSuggestion = ->
   tagHighlight = document.createElement('span')
   tagHighlight.className = 'TagHighlight'
   tagHighlight.style.height = fontSize
+  halfHeight = parseInt(tagHighlight.style.height.slice(0, -2), 10) / 2
   # FIXME — Don't used hard-coded size. Should be half of fontSize
-  tagHighlight.style.top = highlightStartPos.top + 13 + 'px'
+  tagHighlight.style.top = highlightStartPos.top + halfHeight - (halfHeight / 4) + 'px'
   tagHighlight.style.left = highlightStartPos.left + 'px'
   tagHighlight.style.width = (highlightEndPos.left - highlightStartPos.left) + 'px'
   activeField.parentNode.appendChild(tagHighlight)
