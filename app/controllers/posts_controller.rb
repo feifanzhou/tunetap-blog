@@ -11,10 +11,18 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
   end
 
+  include PostsHelper
   def create
+    if cookies.signed[:remember_token].blank?
+      render html: '<p>Sign in to post</p>' and return
+    end
+    @author = Contributor.find_by_remember_token(cookies.signed[:remember_token])
     new_post = Post.new(post_params)
+    new_post.contributor = @author
     new_post.process_player_embed(params[:post][:embed_link])
     new_post.save
+    new_post.save_content(params[:post][:tagged_texts], params[:post][:tag_ranges])
+    render_post_partial(new_post, true)
   end
 
   private

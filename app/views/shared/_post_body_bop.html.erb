@@ -1,4 +1,6 @@
-<div class='Post Tile BopPost'>
+<% classString = 'Post Tile BopPost' %>
+<% classString << ' NewPost' if is_new_post %>
+<div class='<%= classString %>'>
   <div>
     <%= image_tag(post.image_url, class: 'PostImage') %>
     <span class='PostEmbed'>

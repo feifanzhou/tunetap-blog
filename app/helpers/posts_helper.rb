@@ -18,9 +18,10 @@ module PostsHelper
     "<a href='https://twitter.com/share' class='twitter-share-button' data-text='#{ post.twitter_text }' data-url='#{ full_path_for_post(post, false) }' data-via='CamelbackMusic'>Tweet</a> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>".html_safe
   end
 
-  def render_post_partial(post)
+  def render_post_partial(post, is_new_post = false)
     if post.player_type == 'bopfm'
-      render partial: 'shared/post_body_bop', locals: { post: post }
+      p '============ Is new post' if is_new_post
+      render partial: 'shared/post_body_bop', formats: [:html], locals: { post: post, is_new_post: is_new_post }
     end
   end
 end

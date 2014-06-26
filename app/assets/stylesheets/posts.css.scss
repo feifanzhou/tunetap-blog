@@ -8,9 +8,11 @@
 .Post {
   border-bottom: 1px dotted transparentize(black, 0.85);
   margin-bottom: 2.25em;
+  overflow: hidden;
   padding: 1.5em 0;
   position: relative;
   width: 568px;
+  @include vendor-prefix(transition, 'height 1s, opacity 1s');
   &.Tile {
     border-bottom: none;
     @include vendor-prefix(box-shadow, '0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset');
@@ -39,9 +41,14 @@
       // margin-left: 8px;
     }
   }
+  &.NewPost {
+    border: 3px solid #F16214;
+    height: 10px;
+    opacity: 0.1;
+  }
 }
 
-.NewPost {
+.CreatePost {
   .Borderless {
     background: transparent;
     border: none;

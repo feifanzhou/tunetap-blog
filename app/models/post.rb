@@ -38,6 +38,34 @@ class Post < ActiveRecord::Base
 
   # FIXME — Fill in
   def process_player_embed(embed_link)
+    self.player_type = 'bopfm'
+  end
+
+  def save_content(tagged_texts, tag_ranges)
+    title = nil
+    body = nil
+    tagged_texts.each do |tt|
+      tagged_text = tt[1]
+      if tagged_text[:content_type] == 'title'
+        title = TaggedText.new(tagged_text)
+      elsif tagged_text[:content_type] == 'body'
+        body = TaggedText.new(tagged_text)
+      end
+    end
+    title.post = self and title.save if !title.blank?
+    body.post = self and body.save if !body.blank?
+
+    tag_ranges.each do |tr|
+      range = tr[1]
+      pp range
+      tag_range = TagRange.new(range.except(:content_type))
+      if range[:content_type] == 'title'
+        tag_range.tagged_text = title
+      elsif range[:content_type] == 'body'
+        tag_range.tagged_text = body
+      end
+      tag_range.save
+    end
   end
 
   def self.posts_for_page(page = 1, posts_per_page = 10)

@@ -88,13 +88,15 @@ selectTagSuggestion = ->
   activeField.parentNode.appendChild(tagHighlight)
 
   tagID = parseInt($(selectedTag).data('tag-id'))
+  fieldID = activeField.getAttribute('id')
+  contentType = if fieldID == 'titleInput' then 'title' else if fieldID == 'contentInput' then 'body' else ''
   tagRange = {
+    content_type: contentType
     tag_id: tagID
     start: TagSug.startIndex
     length: tagLength
   }
   TagSug.tags.push(tagRange)
-  console.log(JSON.stringify(TagSug.tags, null, 2))
 $('body').on('keydown', '#titleInput', handleTagFieldKeydown)
 $('body').on('keyup', '#titleInput', handleTagFieldKeyup)
 $('body').on('blur', '#titleInput', -> $('#titleTagSuggestions').html(''))
@@ -109,6 +111,35 @@ $('body').on('mouseover', '.TagSuggestions li', (event) ->
 
 $('body').on('click', '#newPostPublish', ->
   post = {
-
+    tagged_texts: [
+      {
+        content_type: 'title'
+        content: $('#titleInput').val()
+      },
+      {
+        content_type: 'body'
+        content: $('#contentInput').val()
+      }
+    ]
+    tag_ranges: TagSug.tags
+    download_link: $('#downloadInput').val()
+    twitter_text: $('#twitterInput').val()
   }
+  $.ajax '/posts',
+    type: 'POST'
+    data: { post: post }
+    dataType: 'html'
+    error: (jqXHR, textStatus, errorThrown) ->
+      console.log('Error posting: ' + textStatus)
+    success: (data, textStatus, jqXHR) ->
+      # InnerHTML for performance reasons
+      # http://jsperf.com/jquery-append-vs-html-list-performance/2
+      currentHTML = document.getElementById('posts').innerHTML
+      newHTML = data + currentHTML
+      document.getElementById('posts').innerHTML = newHTML
+      newPostTop = $('.NewPost').first().offset().top
+      $('html, body').animate({
+        scrollTop: (0.75 * newPostTop)
+      }, 500)
+      setTimeout( (-> $('.NewPost').removeClass('NewPost')), 1500)
 )
