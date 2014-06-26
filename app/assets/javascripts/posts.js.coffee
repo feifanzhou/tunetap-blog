@@ -2,6 +2,7 @@
 window.TagSug or= {}
 TagSug.startIndex = -1
 TagSug.cursorPositions = {}
+TagSug.tags = []
 findTagSuggestions = (target) -> 
   content = $(target).val()
   # Split content into words (delimited by spaces)
@@ -66,7 +67,6 @@ handleTagFieldKeyup = (event) ->
     saveTextCursorPosition(event)
     findTagSuggestions(event.target)
 selectTagSuggestion = ->
-  console.log('Select tag suggestion')
   activeField = document.activeElement
   selectedTag = $('.TagSuggestions > li.Selected')
   tagText = $(selectedTag).text()
@@ -82,11 +82,19 @@ selectTagSuggestion = ->
   tagHighlight.className = 'TagHighlight'
   tagHighlight.style.height = fontSize
   halfHeight = parseInt(tagHighlight.style.height.slice(0, -2), 10) / 2
-  # FIXME — Don't used hard-coded size. Should be half of fontSize
   tagHighlight.style.top = highlightStartPos.top + halfHeight - (halfHeight / 4) + 'px'
   tagHighlight.style.left = highlightStartPos.left + 'px'
   tagHighlight.style.width = (highlightEndPos.left - highlightStartPos.left) + 'px'
   activeField.parentNode.appendChild(tagHighlight)
+
+  tagID = parseInt($(selectedTag).data('tag-id'))
+  tagRange = {
+    tag_id: tagID
+    start: TagSug.startIndex
+    length: tagLength
+  }
+  TagSug.tags.push(tagRange)
+  console.log(JSON.stringify(TagSug.tags, null, 2))
 $('body').on('keydown', '#titleInput', handleTagFieldKeydown)
 $('body').on('keyup', '#titleInput', handleTagFieldKeyup)
 $('body').on('blur', '#titleInput', -> $('#titleTagSuggestions').html(''))
