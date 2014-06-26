@@ -55,6 +55,7 @@ class Post < ActiveRecord::Base
     title.post = self and title.save if !title.blank?
     body.post = self and body.save if !body.blank?
 
+    return if tag_ranges.blank?
     tag_ranges.each do |tr|
       range = tr[1]
       pp range
