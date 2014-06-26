@@ -73,7 +73,19 @@ selectTagSuggestion = ->
   tagLength = tagText.length
   newText = activeField.value.slice(0, TagSug.startIndex) + tagText
   activeField.value = newText
-  # highlightContainer = activeField.parentNode
+  # FIXME — Select nearest positions if needed
+  highlightStartPos = TagSug.cursorPositions[TagSug.startIndex + '']
+  highlightEndPos = getCaretCoordinates(activeField, activeField.selectionEnd)
+  fontSize = window.getComputedStyle(activeField).getPropertyValue('font-size')
+
+  tagHighlight = document.createElement('span')
+  tagHighlight.className = 'TagHighlight'
+  tagHighlight.style.height = fontSize
+  # FIXME — Don't used hard-coded size. Should be half of fontSize
+  tagHighlight.style.top = highlightStartPos.top + 13 + 'px'
+  tagHighlight.style.left = highlightStartPos.left + 'px'
+  tagHighlight.style.width = (highlightEndPos.left - highlightStartPos.left) + 'px'
+  activeField.parentNode.appendChild(tagHighlight)
 $('body').on('keydown', '#titleInput', handleTagFieldKeydown)
 $('body').on('keyup', '#titleInput', handleTagFieldKeyup)
 $('body').on('blur', '#titleInput', -> $('#titleTagSuggestions').html(''))
