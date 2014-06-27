@@ -21,7 +21,7 @@ class Post < ActiveRecord::Base
   has_many :tags, ->  { uniq }, through: :tag_ranges
 
   validates :contributor_id, presence: true, numericality: { greater_than: 0 }
-  validates :player_type, presence: true, inclusion: { in: ['soundcloud', 'bopfm'] }
+  validates :player_type, presence: true, inclusion: { in: ['soundcloud', 'bopfm', 'unknown'] }
   # FIXME — Make sure post has title
 
   def embed_color
@@ -45,9 +45,11 @@ class Post < ActiveRecord::Base
       # Make sure to use short player
       # And set the correct color
       src_index = embed_link.index 'src='
-      src_index += 5
-      end_index = embed_link.index('>') - 2
-      new_link = embed_link[src_index..end_index]
+      unless src_index.blank?
+        src_index += 5
+        end_index = embed_link.index('>') - 2
+        new_link = embed_link[src_index..end_index]
+      end
 
       color_index = new_link.index('color=')
       if color_index.blank?
@@ -62,10 +64,12 @@ class Post < ActiveRecord::Base
 
       # FIXME — Visual removal not working yet
       visual_index = new_link.index('visual=true')
-      new_link = new_link[0..visual_index] if !visual_index.blank?
+      new_link = new_link[0...visual_index] if !visual_index.blank?
 
       self.player_embed = new_link
       self.player_type = 'soundcloud'
+    else
+      self.player_type = 'unknown'
     end
   end
 
@@ -94,7 +98,6 @@ class Post < ActiveRecord::Base
     return if tag_ranges.blank?
     tag_ranges.each do |tr|
       range = tr[1]
-      pp range
       tag_range = TagRange.new(range.except(:content_type))
       if range[:content_type] == 'title'
         tag_range.tagged_text = title

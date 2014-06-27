@@ -75,3 +75,26 @@ describe 'Post title' do
     expect(@post.title_text).to eq('Lorem ipsum')
   end
 end
+
+describe 'Post embed code' do
+  it 'gets the right embed code for bop.fm' do
+    post = FactoryGirl.create :bop_post
+    expect(post.embed_code).to eq('<a data-width="358" data-bop-link href="http://bop.fm/s/lana-del-rey/west-coast">Lana Del Rey - West Coast | Listen for free at bop.fm</a><script async src="http://assets.bop.fm/embed.js"></script>')
+  end
+  it 'gets the right embed code for Soundcloud' do
+    post = FactoryGirl.create :soundcloud_post
+    expect(post.embed_code).to eq("<iframe width='100%' height='202' scrolling='no' frameborder='no' src='https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/151835201&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true'></iframe>")
+  end
+  it 'saves correctly given a Bop.fm' do
+    post = FactoryGirl.create :post
+    post.process_player_embed('<a data-width="358" data-bop-link href="http://bop.fm/s/lana-del-rey/west-coast">Lana Del Rey - West Coast | Listen for free at bop.fm</a><script async src="http://assets.bop.fm/embed.js"></script>')
+    expect(post.player_type).to eq('bopfm')
+    expect(post.player_embed).to eq('<a data-width="358" data-bop-link href="http://bop.fm/s/lana-del-rey/west-coast">Lana Del Rey - West Coast | Listen for free at bop.fm</a><script async src="http://assets.bop.fm/embed.js"></script>')
+  end
+  it 'saves correctly given a Soundcloud link' do
+    post = FactoryGirl.create :post
+    post.process_player_embed('<iframe width="100%" height="300" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/151835201&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true"></iframe>')
+    expect(post.player_type).to eq('soundcloud')
+    expect(post.player_embed).to eq('https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/151835201&amp;color=F16214&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;')
+  end
+end

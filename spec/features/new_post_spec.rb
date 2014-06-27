@@ -105,4 +105,46 @@ describe 'Filling in a new post' do
       expect(page).to have_selector 'li.Selected', text: 'tag1'
     end
   end
+  # Can't send keypresses… :(
+  describe 'and selecting a tag suggestion' do
+    it 'puts tag text into field'
+    it 'shows tag highlight'
+    it 'clears tag suggestions list'
+  end
+
+  describe 'and submitting it' do
+    describe 'without an embed' do
+      it 'fails to save' do
+        post_count = Post.count
+        fill_in 'titleInput', with: 'Test title'
+        fill_in 'contentInput', with: 'Hello world'
+        click_button 'Publish'
+        expect(Post.count).to eq(post_count)
+      end
+    end
+    describe 'without tags' do
+      it 'saves a post in the database' do
+        post_count = Post.count
+        fill_in 'titleInput', with: 'Test title'
+        fill_in 'contentInput', with: 'Hello world'
+        fill_in 'embedInput', with: '<iframe width="100%" height="300" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/151835201&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true"></iframe>'
+        click_button 'Publish'
+        expect(Post.count).to eq(post_count)
+      end
+    end
+    describe 'with tags' do
+      it 'saves a post, tagged text and tag ranges in the database'
+    end
+
+    # FIXME — this test is actually seeing the content in the original fields, not the new post
+    it 'displays the post on the page' do
+      fill_in 'titleInput', with: 'Test title'
+      fill_in 'contentInput', with: 'Hello world'
+      fill_in 'embedInput', with: '<iframe width="100%" height="300" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/151835201&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true"></iframe>'
+      click_button 'Publish'
+      expect(page).to have_content('Test title')
+      expect(page).to have_content('Hello world')
+      # expect(page).to have_selector('.NewPost')
+    end
+  end
 end
