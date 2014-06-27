@@ -76,3 +76,14 @@ RSpec.configure do |config|
   end
 =end
 end
+
+
+def sign_in
+  visit '/contributors/login'
+
+  within '#new_contributor' do
+    fill_in 'contributor_email', with: 'mike@tunetap.com'
+    fill_in 'contributor_password', with: 'loginpass'
+  end
+  click_button 'Login'
+end

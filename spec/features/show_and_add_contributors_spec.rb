@@ -3,12 +3,7 @@ require 'rails_helper'
 describe 'Contributors index page' do
   before :each do
     c = FactoryGirl.create :contributor
-    visit '/contributors/login'
-    within '#new_contributor' do
-      fill_in 'contributor_email', with: 'mike@tunetap.com'
-      fill_in 'contributor_password', with: 'loginpass'
-    end
-    click_button 'Login'
+    sign_in
     # Create posts here to avoid display issues on homepage
     p = FactoryGirl.build :post
     p.contributor = c

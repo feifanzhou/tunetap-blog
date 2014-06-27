@@ -20,12 +20,7 @@ describe 'Login page' do
 
   it 'goes to home page and shows New post if login is correct' do
     FactoryGirl.create :contributor
-    visit '/contributors/login'
-    within '#new_contributor' do
-      fill_in 'contributor_email', with: 'mike@tunetap.com'
-      fill_in 'contributor_password', with: 'loginpass'
-    end
-    click_button 'Login'
+    sign_in
     expect(page).to have_content 'New Post'
   end
 end

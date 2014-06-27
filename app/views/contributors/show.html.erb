@@ -1,1 +1,6 @@
-Name: <%= @contributor.name %>
+<div id='posts'>
+  <h1><%= @contributor.name %>&#39;s posts</h1>
+  <% @posts.each do |p| %>
+    <%= render_post_partial(p) %>
+  <% end %>
+</div>

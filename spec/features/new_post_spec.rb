@@ -12,13 +12,8 @@ describe 'Filling in a new post' do
     tag3 = Tag.new(name: 'tag3', tag_type: 'artist')
     tag3.contributor = author
     tag3.save
-    visit '/contributors/login'
-
-    within '#new_contributor' do
-      fill_in 'contributor_email', with: 'mike@tunetap.com'
-      fill_in 'contributor_password', with: 'loginpass'
-    end
-    click_button 'Login'
+    
+    sign_in
   end
 
   def expect_page_to_not_have_tag_suggestions
