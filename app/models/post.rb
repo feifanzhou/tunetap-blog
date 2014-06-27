@@ -36,9 +36,45 @@ class Post < ActiveRecord::Base
     end
   end
 
-  # FIXME — Fill in
   def process_player_embed(embed_link)
-    self.player_type = 'bopfm'
+    if embed_link.include? 'bop.fm'
+      self.player_embed = embed_link
+      self.player_type = 'bopfm'
+    elsif embed_link.include? 'soundcloud.com'
+      # FIXME — Clean up ugly code
+      # Make sure to use short player
+      # And set the correct color
+      src_index = embed_link.index 'src='
+      src_index += 5
+      end_index = embed_link.index('>') - 2
+      new_link = embed_link[src_index..end_index]
+
+      color_index = new_link.index('color=')
+      if color_index.blank?
+        amp_index = new_link.index('&amp;')
+        color_str = "&amp;color=#{ self.embed_color }"
+        new_link.insert(amp_index, color_str)
+      else
+        color_index += 6
+        color_end_index = color_index + 6
+        new_link[color_index...color_end_index] = self.embed_color
+      end
+
+      # FIXME — Visual removal not working yet
+      visual_index = new_link.index('visual=true')
+      new_link = new_link[0..visual_index] if !visual_index.blank?
+
+      self.player_embed = new_link
+      self.player_type = 'soundcloud'
+    end
+  end
+
+  def embed_code
+    if self.player_type == 'bopfm'
+      return self.player_embed.html_safe
+    elsif self.player_type == 'soundcloud'
+      return "<iframe width='100%' height='202' scrolling='no' frameborder='no' src='#{ self.player_embed }'></iframe>".html_safe
+    end
   end
 
   def save_content(tagged_texts, tag_ranges)

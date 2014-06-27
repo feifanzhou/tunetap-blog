@@ -20,8 +20,11 @@ module PostsHelper
 
   def render_post_partial(post, is_new_post = false)
     if post.player_type == 'bopfm'
-      p '============ Is new post' if is_new_post
       render partial: 'shared/post_body_bop', formats: [:html], locals: { post: post, is_new_post: is_new_post }
+    elsif post.player_type == 'soundcloud'
+      render partial: 'shared/post_body_soundcloud', formats: [:html], locals: { post: post, is_new_post: is_new_post }
+    else
+      render html: '<p>Invalid post embed format</p>'.html_safe
     end
   end
 end
