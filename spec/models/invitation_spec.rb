@@ -9,7 +9,10 @@
 #  created_at      :datetime
 #  updated_at      :datetime
 #  should_be_admin :boolean
+#  is_accepted     :boolean
 #
+
+require 'rails_helper'
 
 describe 'Invitation' do
   let(:invitation) { FactoryGirl.create :invitation }
@@ -17,7 +20,6 @@ describe 'Invitation' do
 
   it { should be_valid }
   it { should respond_to :access_code }
-  it { should respond_to :recipient_id }
   it { should respond_to :inviter_id }
 
   it 'should be active' do

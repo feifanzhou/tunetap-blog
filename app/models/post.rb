@@ -120,6 +120,10 @@ class Post < ActiveRecord::Base
     Post.order(created_at: :desc).limit(posts_per_page).offset(page - 1).to_a
   end
 
+  def blank?
+    tagged_texts.size == 0 || super
+  end
+
   # ========== Post content ==========
   def author
     return self.contributor

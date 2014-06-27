@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   get '/tags/:id/:slug' => 'tags#show'
   resources :contributors
   get '/contributors/:id/:slug' => 'contributors#show'
+  resources :invitations
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

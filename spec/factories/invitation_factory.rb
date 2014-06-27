@@ -9,12 +9,12 @@
 #  created_at      :datetime
 #  updated_at      :datetime
 #  should_be_admin :boolean
+#  is_accepted     :boolean
 #
 
 FactoryGirl.define do
   factory :invitation do
     access_code 'letmein'
-    recipient_id 1
     inviter_id 1
     should_be_admin false
   end

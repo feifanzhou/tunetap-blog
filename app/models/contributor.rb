@@ -19,7 +19,7 @@ class Contributor < ActiveRecord::Base
   has_many :posts
   has_many :tags
   has_many :sent_invitations, class_name: 'Invitation', foreign_key: 'inviter_id'
-  has_many :received_invitations, class_name: 'Invitation', foreign_key: 'recipient_id'
+  has_one :received_invitation, class_name: 'Invitation', foreign_key: 'recipient_id'
 
   before_validation { create_remember_token if (self.remember_token.blank? && self.password_digest && defined?(self.password_digest)) }
   before_create { |user| user.email = user.email.downcase }
@@ -40,6 +40,26 @@ class Contributor < ActiveRecord::Base
   
   def posts_for_page(page = 1, posts_per_page = 10)
     return self.posts.limit(posts_per_page).offset(page - 1)
+  end
+
+  def number_of_posts
+    posts.size
+  end
+
+  def number_of_tags
+    tags.size
+  end
+
+  def generate_invitation
+    # FIXME — Generate access code in method on Invitation. Cleaner, more testable
+    i = Invitation.new(should_be_admin: false, is_accepted: false, access_code: SecureRandom.urlsafe_base64)
+    i.inviter = self
+    i.save
+    return i
+  end
+
+  def inviter
+    received_invitation.blank? ? nil : received_invitation.inviter
   end
 
   private

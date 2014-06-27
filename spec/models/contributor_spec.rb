@@ -43,7 +43,7 @@ RSpec.describe Contributor, :type => :model do
   end
 end
 
-describe 'Contributor' do
+describe 'Contributor posts' do
   let(:author) { FactoryGirl.create :contributor }
   let(:post1) { FactoryGirl.build :post }
   let(:post2) { FactoryGirl.build :post }
@@ -54,9 +54,12 @@ describe 'Contributor' do
     post2.contributor = author
     post2.save
   end
-  it 'finds its posts' do
+  it 'are fetched correctly' do
     posts = author.posts_for_page
     expect(posts.count).to eq(2)
     expect(posts.first.id).to eq(post1.id)
+  end
+  it 'have the right count' do
+    expect(author.number_of_posts).to eq(2)
   end
 end

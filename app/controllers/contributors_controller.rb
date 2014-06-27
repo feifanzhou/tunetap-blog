@@ -1,4 +1,12 @@
 class ContributorsController < ApplicationController
+  include ApplicationHelper
+  def index
+    if is_not_contributor
+      render status: :unauthorized, html: 'If you are a contributor, please <a href="/contributors/login">login</a>'.html_safe
+    end
+    @contributors = Contributor.all
+  end
+
   include InvitationsHelper
   def new
     if Contributor.count >= 1 && (params[:access_code].blank? || invalid_access_code(params[:access_code]))
@@ -33,7 +41,7 @@ class ContributorsController < ApplicationController
   end
 
   def login
-    if !cookies.signed[:remember_token].blank? && Contributor.exists?(remember_token: cookies.signed[:remember_token])
+    if is_contributor
       redirect_to root_path and return
     end
   end

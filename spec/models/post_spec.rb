@@ -24,6 +24,10 @@ RSpec.describe Post, :type => :model do
   it { should respond_to :contributor_id }
   it { should respond_to :player_type }
 
+  it 'is blank without tagged texts' do
+    expect(post.blank?).to be true
+  end
+
   it 'gets the right body' do
     body = FactoryGirl.build :tagged_body
     body.post = post

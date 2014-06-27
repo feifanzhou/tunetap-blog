@@ -1,0 +1,25 @@
+<h1>Contributors</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Created</th>
+      <th>Added by</th>
+      <th>Posts</th>
+      <th>Tags</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @contributors.each do |c| %>
+      <td><%= c.name %></td>
+      <td><%= mail_to c.email, c.email %></td>
+      <td><%= c.created_at.strftime('%B %e at %l:%M %p') %> (UTC)</td>
+      <td><%= c.inviter.blank? ? 'None' : c.inviter.name %>
+      <td><%= link_to c.number_of_posts, contributor_path(c) %></td>
+      <td><%= c.number_of_tags %></td>
+    <% end %>
+  </tbody>
+</table>
+<p><a href='#' id='inviteLink'>Invite new contributor</a></p>
+<p id='inviteResults'></p>
