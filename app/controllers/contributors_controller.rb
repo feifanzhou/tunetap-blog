@@ -31,9 +31,6 @@ class ContributorsController < ApplicationController
   end
 
   def show
-    if cookies.signed[:remember_token].blank?
-      render status: :unauthorized, text: 'You need to sign in' and return
-    end
     @contributor = Contributor.find(params[:id])
     @posts = @contributor.posts_for_page(1, 10).select { |post| !post.blank? }
   end

@@ -1,0 +1,6 @@
+<div id='posts'>
+  <h1>Posts tagged with <%= @tag.name %></h1>
+  <% @posts.each do |p| %>
+    <%= render_post_partial(p) %>
+  <% end %>
+</div>
