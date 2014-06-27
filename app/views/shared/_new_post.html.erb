@@ -10,11 +10,13 @@
   </div>
   <div class='NewPostContentBlock' id='newPostTitle'>
     <textarea class='Borderless' id='titleInput' placeholder='Post title'></textarea>
+    <p class='Hidden TagPrompt' id='titleInputTagPromptContainer'><a href='#' class='CreateTag' data-input-id='titleInput'>Create tag with "<span class='TagName' id='titleInputTagPrompt' data-input-id='titleInput'></span>"</a></p>
     <div class='TagSuggestionsContainer' id='titleTagSuggestions'></div>
   </div>
   <div class='NewPostContentBlock'>
     <div id='newPostContent'>
       <textarea class='Borderless' id='contentInput' placeholder='Say something' rows='4'></textarea>
+      <p class='Hidden TagPrompt' id='contentInputTagPromptContainer'><a href='#' class='CreateTag' data-input-id='contentInput'>Create tag with "<span class='TagName' id='contentInputTagPrompt' data-input-id='contentInput'></span>"</a></p>
       <div class='TagSuggestionsContainer' id='contentTagSuggestions'></div>
     </div>
     <div id='newPostDownloadLink'>

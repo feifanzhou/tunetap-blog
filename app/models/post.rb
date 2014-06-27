@@ -81,7 +81,7 @@ class Post < ActiveRecord::Base
     end
   end
 
-  def save_content(tagged_texts, tag_ranges)
+  def save_content(tagged_texts, tag_ranges, contributor)
     title = nil
     body = nil
     tagged_texts.each do |tt|
@@ -98,7 +98,15 @@ class Post < ActiveRecord::Base
     return if tag_ranges.blank?
     tag_ranges.each do |tr|
       range = tr[1]
-      tag_range = TagRange.new(range.except(:content_type))
+      tag_range = TagRange.new(range.except(:content_type, :text))
+      if range[:tag_id].blank? && !range[:text].blank?
+        # Need to create new tag
+        # FIXME — Add tests for this
+        t = Tag.new(name: range[:text], description: '', tag_type: 'other')
+        t.contributor = contributor
+        t.save
+        tag_range.tag = t
+      end
       if range[:content_type] == 'title'
         tag_range.tagged_text = title
       elsif range[:content_type] == 'body'

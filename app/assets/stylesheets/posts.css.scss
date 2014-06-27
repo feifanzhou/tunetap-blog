@@ -5,6 +5,10 @@
 
 @import 'shared';
 
+.Hidden {
+  display: none;
+}
+
 .Post {
   border-bottom: 1px dotted transparentize(black, 0.85);
   margin-bottom: 2.25em;
@@ -89,6 +93,9 @@
     border: 1px solid transparentize(#F16214, 0.75);
     border-radius: 3px;
     position: absolute;
+  }
+  .TagPrompt {
+    padding: 0 0.7em;
   }
   .NewPostContentBlock {
     background: #EEE;

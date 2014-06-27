@@ -22,7 +22,7 @@ class Tag < ActiveRecord::Base
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
   validates :contributor_id, presence: true, numericality: { greater_than: 0 }
-  validates :tag_type, presence: true, inclusion: { in: ['artist'] }
+  validates :tag_type, presence: true, inclusion: { in: ['artist', 'other'] }
 
   def creator
     return self.contributor

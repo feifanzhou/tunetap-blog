@@ -47,7 +47,11 @@ saveTextCursorPosition = (event) ->
   valueLength = target.value.length
   coords = getCaretCoordinates(target, target.selectionEnd)
   TagSug.cursorPositions[valueLength + ''] = coords
+  console.log(JSON.stringify(TagSug.cursorPositions, null, 2))
 handleTagFieldKeyup = (event) ->
+  promptContainerID = '#' + event.target.getAttribute('id') + 'TagPromptContainer'
+  $(promptContainerID).slideUp
+
   keyCode = event.keyCode
   selectedTag = $('.TagSuggestions .Selected')
   if keyCode == 38 # Up arrow
@@ -66,6 +70,15 @@ handleTagFieldKeyup = (event) ->
   else
     saveTextCursorPosition(event)
     findTagSuggestions(event.target)
+drawTagHighlight = (textField, height, startPos, endPos) ->
+  tagHighlight = document.createElement('span')
+  tagHighlight.className = 'TagHighlight'
+  tagHighlight.style.height = height
+  halfHeight = parseInt(tagHighlight.style.height.slice(0, -2), 10) / 2
+  tagHighlight.style.top = startPos.top + halfHeight - (halfHeight / 4) + 'px'
+  tagHighlight.style.left = startPos.left + 'px'
+  tagHighlight.style.width = (endPos.left - startPos.left) + 'px'
+  textField.parentNode.appendChild(tagHighlight)
 selectTagSuggestion = ->
   activeField = document.activeElement
   selectedTag = $('.TagSuggestions > li.Selected')
@@ -78,14 +91,7 @@ selectTagSuggestion = ->
   highlightEndPos = getCaretCoordinates(activeField, activeField.selectionEnd)
   fontSize = window.getComputedStyle(activeField).getPropertyValue('font-size')
 
-  tagHighlight = document.createElement('span')
-  tagHighlight.className = 'TagHighlight'
-  tagHighlight.style.height = fontSize
-  halfHeight = parseInt(tagHighlight.style.height.slice(0, -2), 10) / 2
-  tagHighlight.style.top = highlightStartPos.top + halfHeight - (halfHeight / 4) + 'px'
-  tagHighlight.style.left = highlightStartPos.left + 'px'
-  tagHighlight.style.width = (highlightEndPos.left - highlightStartPos.left) + 'px'
-  activeField.parentNode.appendChild(tagHighlight)
+  drawTagHighlight(activeField, fontSize, highlightStartPos, highlightEndPos)
 
   tagID = parseInt($(selectedTag).data('tag-id'))
   fieldID = activeField.getAttribute('id')
@@ -97,9 +103,11 @@ selectTagSuggestion = ->
     length: tagLength
   }
   TagSug.tags.push(tagRange)
+$('body').on('focus', '#titleInput', saveTextCursorPosition)
 $('body').on('keydown', '#titleInput', handleTagFieldKeydown)
 $('body').on('keyup', '#titleInput', handleTagFieldKeyup)
 $('body').on('blur', '#titleInput', -> $('#titleTagSuggestions').html(''))
+$('body').on('focus', '#contentInput', saveTextCursorPosition)
 $('body').on('keydown', '#contentInput', handleTagFieldKeydown)
 $('body').on('keyup', '#contentInput', handleTagFieldKeyup)
 $('body').on('blur', '#contentInput', -> $('#contentTagSuggestions').html(''))
@@ -144,3 +152,55 @@ $('body').on('click', '#newPostPublish', ->
       }, 500)
       setTimeout( (-> $('.NewPost').removeClass('NewPost')), 1500)
 )
+
+# =========== Select + create new tags ==========
+# http://stackoverflow.com/a/5379408/472768
+TagSug.selectedText = ''
+getSelectionText = ->
+  text = ''
+  if window.getSelection
+    text = window.getSelection().toString()
+  else if document.selection && document.selection.type != "Control"
+    text = document.selection.createRange().text
+  return text
+finishSelection = (event) ->
+  if !document.activeElement || document.activeElement.tagName == 'body'
+    console.log('Not in text field')
+  selectedText = getSelectionText()
+  containerID = '#' + event.target.getAttribute('id') + 'TagPromptContainer'
+  if selectedText.length < 1
+    $(containerID).slideUp()
+    return
+  $(containerID).slideDown()
+  promptID = '#' + event.target.getAttribute('id') + 'TagPrompt'
+  $(promptID).html(selectedText)
+  TagSug.selectedText = selectedText
+$('body').on('mouseup', '#titleInput', finishSelection)
+$('body').on('mouseup', '#contentInput', finishSelection)
+
+createTag = (event) ->
+  event.preventDefault()
+  fieldID = event.target.getAttribute('data-input-id')
+  console.log('Event target: ' + event.target.className)
+  console.log('FieldID: ' + fieldID)
+  contentType = if fieldID == 'titleInput' then 'title' else if fieldID == 'contentInput' then 'body' else ''
+  fieldValue = $('#' + fieldID).val()
+  start = fieldValue.indexOf(TagSug.selectedText)
+  length = TagSug.selectedText.length
+  tagRange = {
+    content_type: contentType
+    text: TagSug.selectedText
+    start: start
+    length: length
+  }
+  TagSug.tags.push(tagRange)
+
+  activeField = document.getElementById(fieldID)
+  fontSize = window.getComputedStyle(activeField).getPropertyValue('font-size')
+  highlightStartPos = TagSug.cursorPositions[start]
+  console.log('Start: ' + start)
+  console.log('Start pos: ' + JSON.stringify(highlightStartPos, null, 2))
+  highlightEndPos = TagSug.cursorPositions[start + length]
+  console.log('End pos: ' + JSON.stringify(highlightEndPos, null, 2))
+  drawTagHighlight(activeField, fontSize, highlightStartPos, highlightEndPos)
+$('body').on('click', '.CreateTag', createTag)
