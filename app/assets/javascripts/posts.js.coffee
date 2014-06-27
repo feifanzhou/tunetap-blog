@@ -131,7 +131,7 @@ $('body').on('click', '#newPostPublish', ->
     data: { post: post }
     dataType: 'html'
     error: (jqXHR, textStatus, errorThrown) ->
-      console.log('Error posting: ' + textStatus)
+      console.log('Error posting: ' + errorThrown)
     success: (data, textStatus, jqXHR) ->
       # InnerHTML for performance reasons
       # http://jsperf.com/jquery-append-vs-html-list-performance/2

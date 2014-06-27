@@ -38,9 +38,9 @@ group :test do
 end
 
 group :development, :test do
-  gem 'figaro'
   gem 'database_cleaner'
   gem 'parallel_tests'
+  gem 'figaro'
 end
 
 group :production do

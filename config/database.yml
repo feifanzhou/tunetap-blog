@@ -81,5 +81,3 @@ test:
 production:
   <<: *default
   database: camelback_production
-  username: camelback
-  password: <%= ENV['CAMELBACK_DATABASE_PASSWORD'] %>
