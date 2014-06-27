@@ -203,4 +203,7 @@ createTag = (event) ->
   highlightEndPos = TagSug.cursorPositions[start + length]
   console.log('End pos: ' + JSON.stringify(highlightEndPos, null, 2))
   drawTagHighlight(activeField, fontSize, highlightStartPos, highlightEndPos)
+
+  containerID = '#' + fieldID + 'TagPromptContainer'
+  $(containerID).slideUp()
 $('body').on('click', '.CreateTag', createTag)
