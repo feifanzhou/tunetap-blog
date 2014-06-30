@@ -13,12 +13,14 @@
   </thead>
   <tbody>
     <% @contributors.each do |c| %>
-      <td><%= c.name %></td>
-      <td><%= mail_to c.email, c.email %></td>
-      <td><%= c.created_at.strftime('%B %e at %l:%M %p') %> (UTC)</td>
-      <td><%= c.inviter.blank? ? 'None' : c.inviter.name %>
-      <td><%= link_to c.number_of_posts, "#{ contributor_path(c) }?all=t" %></td>
-      <td><%= c.number_of_tags %></td>
+      <tr>
+        <td><%= c.name %></td>
+        <td><%= mail_to c.email, c.email %></td>
+        <td><%= c.created_at.strftime('%B %e at %l:%M %p') %> (UTC)</td>
+        <td><%= c.inviter.blank? ? 'None' : c.inviter.name %>
+        <td><%= link_to c.number_of_posts, "#{ contributor_path(c) }?all=t" %></td>
+        <td><%= c.number_of_tags %></td>
+      </td>
     <% end %>
   </tbody>
 </table>
