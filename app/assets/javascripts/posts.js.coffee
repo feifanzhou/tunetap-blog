@@ -235,4 +235,5 @@ $('body').on('click', '.UndoPostDelete', (event) ->
     success: (data, textStatus, jqXHR) ->
       $(event.target).parents('.Tile').children('.PostContent').slideDown()
       $(event.target).parents('.Tile').children('.PostDeleted').slideUp()
+      $(event.target).parents('.Tile').children('.Faded').removeClass('Faded')
 )
