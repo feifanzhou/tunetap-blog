@@ -26,6 +26,9 @@ class PostsController < ApplicationController
   end
 
   def update
+    if is_not_contributor
+      render status: :unauthorized and return
+    end
     post = Post.find(params[:id])
     post.is_deleted = params[:post][:is_deleted]
     post.save
@@ -33,6 +36,9 @@ class PostsController < ApplicationController
   end
 
   def destroy
+    if is_not_contributor
+      render status: :unauthorized and return
+    end
     post = Post.find(params[:id])
     post.is_deleted = true
     post.save
