@@ -32,7 +32,9 @@ class ContributorsController < ApplicationController
 
   def show
     @contributor = Contributor.find(params[:id])
-    @posts = @contributor.posts_for_page(1, 10).select { |post| !post.blank? }
+    @is_logged_in = is_contributor
+    should_show_all = @is_logged_in && !params[:all].blank? && params[:all] == 't'
+    @posts = @contributor.posts_for_page(1, 10, should_show_all).select { |post| !post.blank? }
   end
 
   def login

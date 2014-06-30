@@ -6,6 +6,10 @@
   -o-#{$name}: #{ $argument };
 }
 
+.Hidden {
+  display: none
+}
+
 .Block {
   border-bottom: 1px dotted transparentize(black, 0.85);
   margin-bottom: 2.25em;

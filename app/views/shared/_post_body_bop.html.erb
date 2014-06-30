@@ -4,6 +4,10 @@
   <% if is_logged_in %>
     <span class='DeletePost' data-post-id='<%= post.id %>'>&times;</span>
   <% end %>
+  <% if is_logged_in %>
+    <% class_string = post.is_deleted ? 'PostDeleted' : 'PostDeleted Hidden' %>
+    <div class='<%= class_string %>'>Post deleted. <a href='#' data-post-id='<%= post.id %>'>Undo.</a></div>
+  <% end %>
   <div class='PostContent'>
     <div>
       <%= image_tag(post.image_url, class: 'PostImage') %>
@@ -34,7 +38,4 @@
       </span>
     </footer>
   </div>
-  <% if is_logged_in %>
-    <div class='PostDeleted'>Post deleted. <a href='#' data-post-id='<%= post.id %>'>Undo.</a></div>
-  <% end %>
 </div>

@@ -25,7 +25,7 @@
       }
     }
     .PostDeleted {
-      display: none
+      margin-bottom: 1em;
     }
     .PostImage {
       display: inline-block;
@@ -58,6 +58,10 @@
     height: 10px;
     opacity: 0.1;
   }
+}
+
+.PostContent.Faded {
+  opacity: 0.25;
 }
 
 .CreatePost {

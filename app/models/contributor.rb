@@ -41,8 +41,9 @@ class Contributor < ActiveRecord::Base
     return "/contributors/#{ self.id }/#{ self.name.parameterize }"
   end
   
-  def posts_for_page(page = 1, posts_per_page = 10)
-    return self.posts.limit(posts_per_page).offset(page - 1)
+  def posts_for_page(page = 1, posts_per_page = 10, show_deleted = false)
+    p = show_deleted ? self.posts : self.posts.where('is_deleted = false')
+    p.limit(posts_per_page).offset(page - 1)
   end
 
   def search_content
