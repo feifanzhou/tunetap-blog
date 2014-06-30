@@ -12,7 +12,7 @@
     <div>
       <%= image_tag(post.image_url, class: 'PostImage') %>
       <span class='PostEmbed'>
-        <%#= post.embed_code %>
+        <%= post.embed_code if Rails.env.production? %>
       </span>
     </div>
     <div class=''>
