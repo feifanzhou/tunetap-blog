@@ -38,7 +38,7 @@
     }
   }
   &.NewPost {
-    border: 3px solid #F16214;
+    border: 3px solid #F6921E;
     height: 10px;
     opacity: 0.1;
   }
@@ -60,15 +60,15 @@
       li {
         padding: 0.35em;
         &.Selected {
-          background: #F16214;
+          background: #F6921E;
           color: white;
         }
       }
     }
   }
   .TagHighlight {
-    background-color: transparentize(#F16214, 0.9);
-    border: 1px solid transparentize(#F16214, 0.75);
+    background-color: transparentize(#F6921E, 0.9);
+    border: 1px solid transparentize(#F6921E, 0.75);
     border-radius: 3px;
     position: absolute;
   }

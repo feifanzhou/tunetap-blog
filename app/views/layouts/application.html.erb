@@ -7,6 +7,7 @@
     <title><%= content_for?(:title) ? yield(:title) << ' | Camelback Music' : 'Camelback Music' %></title>
 
     <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600' rel='stylesheet' type='text/css' />
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <%= stylesheet_link_tag    "application" %>
     <%= javascript_include_tag "vendor/modernizr" %>
     <%= csrf_meta_tags %>
@@ -15,13 +16,24 @@
   <body>
     <div id='container'>
       <div id='left'>
-        Left
+        <div id='logo'>
+          <a href='/'>
+            <%= image_tag 'shades.png', size: '31x35' %>
+            <span id='name'>Camelback</span>
+          </a>
+        </div>
       </div>
       <div id='content'>
         <%= yield %>
       </div>
       <div id='right'>
-        <a href='/contributors/'>Admin</a>
+        <div id='social'>
+          <!-- Using Unicode characters rather than classes to avoid Adblock issue -->
+          <span class='fa fa-fw'><a href='https://www.facebook.com/camelbackmusic' target='_blank'>&#xf09a;</a></span>
+          <span class='fa fa-fw'><a href='https://twitter.com/camelbackmusic' target='_blank'>&#xf099;</a></span>
+          <span class='fa fa-fw'><a href='https://soundcloud.com/camelback-music' target='_blank'>&#xf1be;</a></span>
+          <span class='fa fa-fw'><a href='http://open.spotify.com/user/121141069' target='_blank'>&#xf1bc;</a></span>
+        </div>
       </div>
     <%= javascript_include_tag "application" %>
   </body>

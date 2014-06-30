@@ -40,4 +40,12 @@ input.Borderless, textarea.Borderless {
   &:focus {
     box-shadow: none;
   }
-}  
+} 
+
+#social .fa a {
+  color: #777;
+  @include vendor-prefix(transition, color 0.25s);
+  &:hover {
+    color: #F6921E;
+  }
+}
