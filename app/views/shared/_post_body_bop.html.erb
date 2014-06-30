@@ -4,7 +4,7 @@
   <div>
     <%= image_tag(post.image_url, class: 'PostImage') %>
     <span class='PostEmbed'>
-      <%= post.embed_code %>
+      <%#= post.embed_code %>
     </span>
   </div>
   <div class=''>
@@ -12,7 +12,7 @@
     <% if !post.body.blank? %>
       <%= post.body.to_html('p') %>
     <% end %>
-    <p class='PostMeta'>Posted by <%= link_to post.author.name, post.author.path_with_slug %> &bull; <%= link_to local_time_ago(post.created_at), post_path(post) %></p>
+    <p class='PostMeta'>Posted by <%= link_to post.author.name, post.author.path_with_slug %> &bull; <%= link_to local_time_ago(post.created_at), post.path_with_slug %></p>
   </div>
   <footer class='clearfix'>
     <span class='SocialActions left'>
