@@ -1,32 +1,40 @@
 <% classString = 'Block PadWidth Tile SoundcloudPost' %>
 <% classString << ' NewPost' if is_new_post %>
 <div class='<%= classString %>'>
-  <div>
-    <%= image_tag(post.image_url, class: 'PostImage') %>
-    <span class='PostEmbed'>
-      <%= post.embed_code %>
-    </span>
-  </div>
-  <div class=''>
-    <%= post.title.to_html('h1') %>
-    <% if !post.body.blank? %>
-      <%= post.body.to_html('p') %>
-    <% end %>
-    <p class='PostMeta'>Posted by <%= link_to post.author.name, post.author.path_with_slug %> &bull; <%= link_to local_time_ago(post.created_at), post.path_with_slug %></p>
-  </div>
-  <footer class='clearfix'>
-    <span class='SocialActions left'>
-      <%= post.twitter_button %>
-      <%= post.facebook_buttons %>
-    </span>
-    <span class='PostActions right'>
-      <span class='DownloadButton'>
-        <a href='<%= post.download_link %>' class='' target download>Download</a>
+  <% if is_logged_in %>
+    <span class='DeletePost' data-post-id='<%= post.id %>'>&times;</span>
+  <% end %>
+  <div class='PostContent'>
+    <div>
+      <%= image_tag(post.image_url, class: 'PostImage') %>
+      <span class='PostEmbed'>
+        <%= post.embed_code %>
       </span>
-      &bull;
-      <span class='CommentLink'>
-        <%= link_to 'Say something&hellip;'.html_safe, '#', title: 'I\'m giving up on you' %>
+    </div>
+    <div class=''>
+      <%= post.title.to_html('h1') %>
+      <% if !post.body.blank? %>
+        <%= post.body.to_html('p') %>
+      <% end %>
+      <p class='PostMeta'>Posted by <%= link_to post.author.name, post.author.path_with_slug %> &bull; <%= link_to local_time_ago(post.created_at), post.path_with_slug %></p>
+    </div>
+    <footer class='clearfix'>
+      <span class='SocialActions left'>
+        <%= post.twitter_button %>
+        <%= post.facebook_buttons %>
       </span>
-    </span>
-  </footer>
+      <span class='PostActions right'>
+        <span class='DownloadButton'>
+          <a href='<%= post.download_link %>' class='' target download>Download</a>
+        </span>
+        &bull;
+        <span class='CommentLink'>
+          <%= link_to 'Say something&hellip;'.html_safe, '#', title: 'I\'m giving up on you' %>
+        </span>
+      </span>
+    </footer>
+  </div>
+  <% if is_logged_in %>
+    <div class='PostDeleted'>Post deleted. <a class='UndoPostDelete' href='#' data-post-id='<%= post.id %>'>Undo.</a></div>
+  <% end %>
 </div>

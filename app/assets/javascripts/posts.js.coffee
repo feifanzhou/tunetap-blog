@@ -208,3 +208,31 @@ createTag = (event) ->
   containerID = '#' + fieldID + 'TagPromptContainer'
   $(containerID).slideUp()
 $('body').on('click', '.CreateTag', createTag)
+
+# ========== Deleting posts ==========
+$('body').on('click', '.DeletePost', (event) ->
+  postID = event.target.getAttribute('data-post-id')
+  $.ajax ('/posts/' + postID),
+    type: 'DELETE'
+    dataType: 'JSON'
+    error: (jqXHR, textStatus, errorThrown) ->
+      console.log('Error deleting post: ' + errorThrown)
+    success: (data, textStatus, jqXHR) ->
+      $(event.target).siblings('.PostContent').slideUp()
+      $(event.target).siblings('.PostDeleted').slideDown()
+)
+$('body').on('click', '.UndoPostDelete', (event) ->
+  event.preventDefault()
+  postID = event.target.getAttribute('data-post-id')
+  $.ajax ('/posts/' + postID),
+    type: 'PATCH'
+    dataType: 'JSON'
+    data: {
+      post: { is_deleted: false }
+    }
+    error: (jqXHR, textStatus, errorThrown) ->
+      console.log('Error undeleting post: ' + errorThrown)
+    success: (data, textStatus, jqXHR) ->
+      $(event.target).parents('.Tile').children('.PostContent').slideDown()
+      $(event.target).parents('.Tile').children('.PostDeleted').slideUp()
+)

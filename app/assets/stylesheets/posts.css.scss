@@ -11,6 +11,22 @@
 
 .Block {
   &.BopPost, &.SoundcloudPost {
+    position: relative;
+    .DeletePost {
+      color: #AAA;
+      font-size: 18px;
+      position: absolute;
+      right: 10px;
+      top: 6px;
+      @include vendor-prefix(transition, color 0.25s);
+      &:hover {
+        color: #666;
+        cursor: pointer;
+      }
+    }
+    .PostDeleted {
+      display: none
+    }
     .PostImage {
       display: inline-block;
       height: 202px;

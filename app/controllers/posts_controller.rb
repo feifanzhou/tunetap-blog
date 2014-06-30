@@ -25,8 +25,22 @@ class PostsController < ApplicationController
     render_post_partial(new_post, true)
   end
 
+  def update
+    post = Post.find(params[:id])
+    post.is_deleted = params[:post][:is_deleted]
+    post.save
+    render json: { success: 1 }
+  end
+
+  def destroy
+    post = Post.find(params[:id])
+    post.is_deleted = true
+    post.save
+    render json: { success: 1 }
+  end
+
   private
   def post_params
-    params.require(:post).permit(:image_url, :download_link, :twitter_text, :facebook_text)
+    params.require(:post).permit(:image_url, :download_link, :twitter_text, :facebook_text, :is_deleted)
   end
 end
