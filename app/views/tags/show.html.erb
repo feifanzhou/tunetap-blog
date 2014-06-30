@@ -1,3 +1,5 @@
+<% provide(:title, @tag.name) %>
+<%= render 'shared/search_bar' %>
 <div id='posts'>
   <h1>Posts tagged with <%= @tag.name %></h1>
   <% @posts.each do |p| %>

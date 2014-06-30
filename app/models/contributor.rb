@@ -14,6 +14,9 @@
 
 class Contributor < ActiveRecord::Base
   include PgSearch
+  # FIXME — Refactor multisearchable call 
+  # and search_content method
+  # into separate module
   multisearchable against: :name
 
   has_many :posts
@@ -40,6 +43,10 @@ class Contributor < ActiveRecord::Base
   
   def posts_for_page(page = 1, posts_per_page = 10)
     return self.posts.limit(posts_per_page).offset(page - 1)
+  end
+
+  def search_content
+    name
   end
 
   def number_of_posts

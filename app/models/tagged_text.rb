@@ -23,6 +23,10 @@ class TaggedText < ActiveRecord::Base
   validates :content, presence: true
   validates :post_id, presence: true, numericality: { greater_than: 0 }
 
+  def search_content
+    content
+  end
+
   include TaggedTextsHelper
   def to_html(in_tag = 'span')
     return tagged_text_to_html(self, in_tag)

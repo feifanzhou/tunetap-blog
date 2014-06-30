@@ -23,12 +23,12 @@ tag_range.tagged_text = title
 tag_range.tag = lana_tag
 tag_range.save
 
-tag1 = Tag.new(name: 'tag1', tag_type: 'artist')
+tag1 = Tag.new(name: 'tag1', tag_type: 'other')
 tag1.contributor = author
 tag1.save
-tag2 = Tag.new(name: 'tag2', tag_type: 'artist')
+tag2 = Tag.new(name: 'tag2', tag_type: 'other')
 tag2.contributor = author
 tag2.save
-tag3 = Tag.new(name: 'tag3', tag_type: 'artist')
+tag3 = Tag.new(name: 'tag3', tag_type: 'other')
 tag3.contributor = author
 tag3.save

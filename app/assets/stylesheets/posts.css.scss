@@ -9,20 +9,7 @@
   display: none;
 }
 
-.Post {
-  border-bottom: 1px dotted transparentize(black, 0.85);
-  margin-bottom: 2.25em;
-  overflow: hidden;
-  padding: 1.5em 0;
-  position: relative;
-  width: 568px;
-  @include vendor-prefix(transition, 'height 1s, opacity 1s');
-  &.Tile {
-    border-bottom: none;
-    @include vendor-prefix(box-shadow, '0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset');
-    padding: 14px;
-    width: 596px;
-  }
+.Block {
   &.BopPost, &.SoundcloudPost {
     .PostImage {
       display: inline-block;
@@ -58,15 +45,6 @@
 }
 
 .CreatePost {
-  .Borderless {
-    background: transparent;
-    border: none;
-    border-bottom: 1px dotted #CCC;
-    box-shadow: none;
-    color: #777;
-    margin-bottom: 0;
-    resize: none;
-  }
   .TagSuggestionsContainer {
     background: transparentize(white, 0.1);
     border-bottom: 1px dotted #CCC;

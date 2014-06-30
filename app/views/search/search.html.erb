@@ -1,0 +1,5 @@
+<% provide(:title, 'Search') %>
+<%= render 'shared/search_bar', query: @query %>
+<% if !@grouped_results.blank? %>
+  <%= render 'shared/search_results', query: @query, results: @grouped_results %>
+<% end %>

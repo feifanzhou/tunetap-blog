@@ -102,9 +102,9 @@ describe 'Filling in a new post' do
   end
   # Can't send keypresses… :(
   describe 'and selecting a tag suggestion' do
-    it 'puts tag text into field'
-    it 'shows tag highlight'
-    it 'clears tag suggestions list'
+    # it 'puts tag text into field'
+    # it 'shows tag highlight'
+    # it 'clears tag suggestions list'
   end
 
   describe 'and submitting it' do
@@ -128,7 +128,7 @@ describe 'Filling in a new post' do
       end
     end
     describe 'with tags' do
-      it 'saves a post, tagged text and tag ranges in the database'
+      # it 'saves a post, tagged text and tag ranges in the database'
     end
 
     # FIXME — this test is actually seeing the content in the original fields, not the new post

@@ -139,6 +139,9 @@ class Post < ActiveRecord::Base
   def body
     self.tagged_texts.where('content_type = ?', 'body').first
   end
+  def body_text
+    body.content
+  end
 
   include PostsHelper
   def facebook_buttons

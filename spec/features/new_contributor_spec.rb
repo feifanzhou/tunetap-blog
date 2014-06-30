@@ -20,7 +20,7 @@ describe 'New contributor signup' do
         visit '/contributors/new?access_code=thisisntright'
         expect(page.status_code).to eq(403)
       end
-      it 'renders :forbidden if access code has expired'
+      # it 'renders :forbidden if access code has expired'
       it 'renders contributors#new if correct access code is provided' do
         visit '/contributors/new?access_code=letmein'
         expect(page).to have_selector '#new_contributor'

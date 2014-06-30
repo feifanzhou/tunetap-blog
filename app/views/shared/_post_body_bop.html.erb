@@ -1,10 +1,10 @@
-<% classString = 'Post Tile BopPost' %>
+<% classString = 'Block PadWidth Tile BopPost' %>
 <% classString << ' NewPost' if is_new_post %>
 <div class='<%= classString %>'>
   <div>
     <%= image_tag(post.image_url, class: 'PostImage') %>
     <span class='PostEmbed'>
-      <%#= post.embed_code %>
+      <%= post.embed_code %>
     </span>
   </div>
   <div class=''>

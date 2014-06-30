@@ -1,0 +1,46 @@
+<% results ||= {} %>
+<div id='searchResults'>
+  <% if !query.blank? && results[:posts].blank? && results[:artists].blank? && results[:tags].blank? && results[:writers].blank? %>
+    <p id='searchResultsBlank'>No results found</p>
+  <% end %>
+  <% if !results[:posts].blank? %>
+    <section id='postResults'>
+      <h2>Posts</h2>
+      <ul class='Results'>
+        <% results[:posts].each do |p| %>
+          <%= render 'shared/search_post_results', post: p %>
+        <% end %>
+      </ul>
+    </section>
+  <% end %>
+  <% if !results[:artists].blank? %>
+    <section id='artistResults'>
+      <h2>Artists</h2>
+      <ul class='Results Grid'>
+        <% results[:artists].each do |a| %>
+          <%= render 'shared/search_tag_results', tag: a %>
+        <% end %>
+      </ul>
+    </section>
+  <% end %>
+  <% if !results[:tags].blank? %>
+    <section id='tagResults'>
+      <h2>Tags</h2>
+      <ul class='Results Grid'>
+        <% results[:tags].each do |t| %>
+          <%= render 'shared/search_tag_results', tag: t %>
+        <% end %>
+      </ul>
+    </section>
+  <% end %>
+  <% if !results[:writers].blank? %>
+    <section id='writerResults'>
+      <h2>Writers</h2>
+      <ul class='Results Grid'>
+        <% results[:writers].each do |w| %>
+          <%= render 'shared/search_writer_results', writer: w %>
+        <% end %>
+      </ul>
+    </section>
+  <% end %>
+</div>

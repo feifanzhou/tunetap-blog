@@ -1,3 +1,5 @@
+<% provide(:title, "#{ @contributor.name }'s posts") %>
+<%= render 'shared/search_bar' %>
 <div id='posts'>
   <h1><%= @contributor.name %>&#39;s posts</h1>
   <% @posts.each do |p| %>

@@ -1,0 +1,77 @@
+// Place all the styles related to the search controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import 'shared';
+
+.Search {
+  margin-bottom: 1.75rem;
+}
+
+#searchResultsBlank {
+  font-weight: 600;
+  padding: 1rem;
+  text-align: center;
+}
+
+#searchResults {
+  section {
+    h2 {
+      border-top: 1px solid transparentize(black, 0.85);
+      font-size: 1.25rem;
+      margin: 0.5rem 0 0 0;
+      padding: 0.35rem;
+    }
+    &:first-child {
+      h2 {
+        border-top: none;
+      }
+    }
+  }
+}
+.Results {
+  list-style: none;
+  margin: 0;
+  li {
+    border-bottom: 1px dotted transparentize(black, 0.85);
+    overflow: hidden;
+    padding: 0.75rem;
+    @include vendor-prefix(transition, background 0.25s);
+    &:hover {
+      background: transparentize(#F16214, 0.9);
+    }
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+  // Put below to prevent li border-bottom overriding
+  &.Grid {
+    a {
+      display: inline-block;
+      height: 50px;
+      overflow: hidden;
+    }
+    li {
+      border: 1px solid transparentize(#F16214, 0.5);
+      border-radius: 3px;
+      color: #666;
+    }
+  }
+}
+#postResults {
+  .SearchResultContent {
+    margin-left: 1rem;
+    .SearchResultTitle {
+      color: #444;
+      font-weight: 600;
+      margin: 0.25rem 0;
+    }
+    .SearchResultBody {
+      color: #666;
+    }
+  }
+}
+
+#searchResultsContainer {
+  background-color: scale-color(#fff, $lightness: -2%);
+}
