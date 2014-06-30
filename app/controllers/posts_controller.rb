@@ -25,6 +25,7 @@ class PostsController < ApplicationController
     render_post_partial(new_post, true)
   end
 
+  include ApplicationHelper
   def update
     if is_not_contributor
       render status: :unauthorized and return
