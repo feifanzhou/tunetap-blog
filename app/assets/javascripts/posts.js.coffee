@@ -131,6 +131,7 @@ $('body').on('click', '#newPostPublish', ->
     ]
     tag_ranges: TagSug.tags
     embed_link: $('#embedInput').val()
+    image_url: $('#imageInput').val()
     download_link: $('#downloadInput').val()
     twitter_text: $('#twitterInput').val()
   }

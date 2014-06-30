@@ -91,14 +91,16 @@
     text-align: center;
     vertical-align: top;
     width: 202px;
-    span {
+    #imageInput {
+      display: block;
+      font-weight: 600;
+      height: 37px;
+      left: 50%;
+      margin: -18px 0 0 -94px;
+      padding: 0;
       position: absolute;
       top: 50%;
-      left: 50%;
-      height: 30%;
-      width: 50%;
-      margin: -15% 0 0 -25%;
-      line-height: 1.25em;
+      width: 188px;
     }
   }
   #newPostPlayerEmbed {
