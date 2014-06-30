@@ -23,8 +23,8 @@ module PostsHelper
       render partial: 'shared/post_body_bop', formats: [:html], locals: { post: post, is_new_post: is_new_post, is_logged_in: is_logged_in }
     elsif post.player_type == 'soundcloud'
       render partial: 'shared/post_body_soundcloud', formats: [:html], locals: { post: post, is_new_post: is_new_post, is_logged_in: is_logged_in }
-    else
-      render html: '<p>Invalid post embed format</p>'.html_safe
+    # else
+    #   render html: '<p>Invalid post embed format</p>'.html_safe
     end
   end
 end
