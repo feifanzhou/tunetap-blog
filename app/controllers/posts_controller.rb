@@ -20,6 +20,7 @@ class PostsController < ApplicationController
     new_post = Post.new(post_params)
     new_post.contributor = @author
     new_post.process_player_embed(params[:post][:embed_link])
+    new_post.is_deleted = false
     new_post.save
     new_post.save_content(params[:post][:tagged_texts], params[:post][:tag_ranges], @author)
     render_post_partial(new_post, true)
