@@ -1,3 +1,56 @@
+# ========== Background blur ==========
+# http://stackoverflow.com/a/17224287/472768
+CanvasImage = (e, t) ->
+  @image = t
+  @element = e
+  @element.width = @image.width
+  @element.height = @image.height
+
+  n = navigator.userAgent.toLowerCase().indexOf("chrome") > -1
+  r = navigator.appVersion.indexOf("Mac") > -1
+  n and r and (@element.width = Math.min(@element.width, 300)
+  @element.height = Math.min(@element.height, 200)
+  )
+  @context = @element.getContext("2d")
+  @context.drawImage(@image, 0, 0)
+
+  return
+
+CanvasImage:: = blur: (e) ->
+  @context.globalAlpha = .5
+  t = -e
+
+  while t <= e
+    n = -e
+
+    while n <= e
+      @context.drawImage(@element, n, t)
+      n >= 0 and t >= 0 and @context.drawImage(@element, -(n - 1), -(t - 1))
+      n += 2
+    t += 2
+  @context.globalAlpha = 1
+  return
+
+$(->
+  image = undefined
+  canvasImage = undefined
+  canvas = undefined
+  $(".BkgBlur").each ->
+    canvas = this
+    image = new Image
+    image.onload = ->
+      canvasImage = new CanvasImage(canvas, this)
+      canvasImage.blur(4)
+
+      return
+
+    image.src = $(this).attr("src")
+
+    return
+
+  return
+)
+
 # ========== Inline tagging when creating post ==========
 window.TagSug or= {}
 TagSug.startIndex = -1

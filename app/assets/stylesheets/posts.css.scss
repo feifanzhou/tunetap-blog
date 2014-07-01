@@ -9,6 +9,16 @@
   display: none;
 }
 
+.BkgBlur {
+  left: 0;
+  min-height: 100%;
+  min-width: 100%;
+  opacity: 0.4;
+  position: fixed;
+  top: 0;
+  z-index: -2;
+}
+
 .Block {
   &.BopPost, &.SoundcloudPost {
     position: relative;
