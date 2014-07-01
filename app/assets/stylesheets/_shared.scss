@@ -54,6 +54,17 @@ input.Borderless, textarea.Borderless {
   }
 }
 
+.SocialActions {
+  position: relative;
+  .fb-like {
+    margin-right: 0.5em;
+  }
+  .twitter-share-button {
+    position: relative;
+    top: 2px;
+  }
+}
+
 #admin {
   border-top: 1px solid #DDD;
   padding: 1em;
