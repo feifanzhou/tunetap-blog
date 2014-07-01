@@ -2,3 +2,14 @@
   Place all the styles related to the matching controller here.
   They will automatically be included in application.css.
 */
+
+#tagType {
+  margin-bottom: 1em;
+  h2 {
+    font-size: 1em;
+  }
+  input[type='radio'] {
+    margin-bottom: 4px;
+    margin-left: 2px;
+  }
+}

@@ -1,0 +1,33 @@
+<%= render 'shared/search_bar' %>
+<h1>Tags</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Tag name</th>
+      <th>Creator</th>
+      <th>Created</th>
+      <th>Posts</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tags.each do |t| %>
+      <tr>
+        <td><%= t.name %></td>
+        <td><%= t.contributor.name %></td>
+        <td><%= t.created_at.strftime('%B %e at %l:%M %p') %> (UTC)</td>
+        <td><%= link_to t.posts.count, t.path_with_slug %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<h1>Add new tag</h1>
+<%= form_for Tag.new do |t| %>
+  <%= t.text_field :name, placeholder: 'Tag name' %>
+  <div id='tagType'>
+    <h2>Tag type</h2>
+    <input type="radio" name="tag[tag_type]" value="other" id='tagTypeOther'><label for='tagTypeOther' checked>Other</label><br />
+    <input type='radio' name='tag[tag_type]' value='artist' id='tagTypeArtist'><label for='tagTypeArtist'>Artist</label>
+  </div>
+  <%= t.submit 'Add tag', class: 'radius button' %>
+<% end %>
+<%= render 'shared/admin_footer' %>
