@@ -20,7 +20,7 @@ class TagsController < ApplicationController
 
   def show
     @tag = Tag.find(params[:id])
-    @posts = @tag.posts_for_page(1, 10).select { |post| !post.blank? }
+    @posts = @tag.posts_for_page(1, 25).select { |post| !post.blank? }
   end
 
   def search
