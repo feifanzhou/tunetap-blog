@@ -1,0 +1,9 @@
+<div class='pagination-centered'>
+  <ul class='pagination'>
+    <% (1..page_count).each do |p| %>
+      <li class="<%= page == p ? 'current' : '' %>">
+        <a href='<%= "#{ path_base }/#{ p }" %>'><%= p %></a>
+      </li>
+    <% end %>
+  </ul>
+</div>

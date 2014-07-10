@@ -1,6 +1,9 @@
 class PostsController < ApplicationController
   def index
-    @posts = Post.posts_for_page(1, 25).select { |post| !post.blank? }
+    @page = params[:index] ? params[:index].to_i : 1
+    @page_count = (Post.count / 10.0).ceil
+    @page_path_base = '/page'
+    @posts = Post.posts_for_page(@page, 10).select { |post| !post.blank? }
     @is_logged_in = false
     if !cookies.signed[:remember_token].blank?
       @is_logged_in = Contributor.exists?(remember_token: cookies.signed[:remember_token])

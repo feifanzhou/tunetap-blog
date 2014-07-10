@@ -43,7 +43,7 @@ class Contributor < ActiveRecord::Base
   
   def posts_for_page(page = 1, posts_per_page = 10, show_deleted = false)
     p = show_deleted ? self.posts : self.posts.where('is_deleted = false')
-    p.limit(posts_per_page).offset(page - 1)
+    p.limit(posts_per_page).offset((page - 1) * posts_per_page)
   end
 
   def search_content

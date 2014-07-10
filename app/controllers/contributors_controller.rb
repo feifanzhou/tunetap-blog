@@ -34,9 +34,12 @@ class ContributorsController < ApplicationController
 
   def show
     @contributor = Contributor.find(params[:id])
+    @page = params[:index] ? params[:index].to_i : 1
+    @page_count = (@contributor.posts.count / 10.0).ceil
+    @page_path_base = "/contributors/#{ params[:id] }/page"
     @is_logged_in = is_contributor
     should_show_all = @is_logged_in && !params[:all].blank? && params[:all] == 't'
-    @posts = @contributor.posts_for_page(1, 25, should_show_all).select { |post| !post.blank? }
+    @posts = @contributor.posts_for_page(@page, 10, should_show_all).select { |post| !post.blank? }
   end
 
   def login

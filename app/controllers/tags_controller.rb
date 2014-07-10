@@ -20,7 +20,10 @@ class TagsController < ApplicationController
 
   def show
     @tag = Tag.find(params[:id])
-    @posts = @tag.posts_for_page(1, 25).select { |post| !post.blank? }
+    @page = params[:index] ? params[:index].to_i : 1
+    @page_count = (@tag.posts.count / 10.0).ceil
+    @page_path_base = "/tags/#{ params[:id] }/page"
+    @posts = @tag.posts_for_page(@page, 10).select { |post| !post.blank? }
   end
 
   def search
