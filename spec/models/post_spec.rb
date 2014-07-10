@@ -92,7 +92,7 @@ describe 'Post embed code' do
   end
   it 'gets the right embed code for Soundcloud' do
     post = FactoryGirl.create :soundcloud_post
-    expect(post.embed_code).to eq("<iframe width='100%' height='202' scrolling='no' frameborder='no' src='https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/151835201&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true'></iframe>")
+    expect(post.embed_code).to eq("<iframe width='100%' height='180' scrolling='no' frameborder='no' src='https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/151835201&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true'></iframe>")
   end
   it 'saves correctly given a Bop.fm' do
     post = FactoryGirl.create :post
