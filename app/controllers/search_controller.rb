@@ -6,6 +6,7 @@ class SearchController < ApplicationController
     text_results = results.select { |r| r.is_a? TaggedText }
     title_results = text_results.select { |r| r.content_type == 'title'}.map(&:post)
     body_results = text_results.select { |r| r.content_type == 'body'}.map(&:post)
+    post_results = (title_results + body_results).uniq
 
     tag_results = results.select { |r| r.is_a? Tag }
     artist_results = tag_results.select { |r| r.tag_type == 'artist' }
@@ -13,7 +14,7 @@ class SearchController < ApplicationController
 
     writer_results = results.select { |r| r.is_a? Contributor }
     @grouped_results = {
-      posts: title_results + body_results,
+      posts: post_results,
       artists: artist_results,
       tags: tag_results,
       writers: writer_results
