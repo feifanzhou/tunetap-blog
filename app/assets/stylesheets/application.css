@@ -20,7 +20,7 @@
   clear: both;
   margin: auto;
   overflow: hidden;
-  width: 900px;
+  width: 920px;
 }
 #left {
   display: inline-block;
@@ -36,7 +36,7 @@
   float: left;
   overflow: hidden;
   vertical-align: top;
-  width: 596px;
+  width: 616px;
 }
 #right {
   display: inline-block;

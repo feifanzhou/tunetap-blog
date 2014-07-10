@@ -39,14 +39,25 @@
     }
     .PostImage {
       display: inline-block;
-      height: 202px;
+      height: 220px;
       margin-right: 5px;
       vertical-align: top;
-      width: 202px;
+      width: 220px;
     }
     .PostEmbed {
       display: inline-block;
-      height: 202px;
+      height: 180px;
+      width: 384px;
+      .DownloadButton {
+        width: 100%;
+        .button {
+          padding: 0.5em inherit;
+          width: 100%;
+        }
+      }
+    }
+    .PostBody {
+      margin-top: 1.5em;
     }
     .PostMeta {
       color: #777;
@@ -58,7 +69,16 @@
       // margin-left: 8px;
     }
   }
+  &.BopPost {
+    .PostEmbed {
+      width: 359px;
+      iframe {
+        height: 180px;
+      }
+    }
+  }
   &.SoundcloudPost {
+    position: relative;
     .PostEmbed {
       width: 348px;
     }
@@ -120,7 +140,7 @@
     position: relative;
     text-align: center;
     vertical-align: top;
-    width: 202px;
+    width: 220px;
     #imageInput {
       display: block;
       font-weight: 600;

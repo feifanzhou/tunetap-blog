@@ -16,10 +16,10 @@
   overflow: hidden;
   padding: 1.5em 0;
   position: relative;
-  width: 568px;
+  width: 588px;
   @include vendor-prefix(transition, 'height 1s, opacity 1s');
   &.PadWidth {
-    width: 596px;
+    width: 616px;
   }
   &.Tile {
     background-color: transparentize(white, 0.5);

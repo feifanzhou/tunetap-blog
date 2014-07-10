@@ -8,14 +8,17 @@
     <% class_string = post.is_deleted ? 'PostDeleted' : 'PostDeleted Hidden' %>
     <div class='<%= class_string %>'>Post deleted. <a href='#' class='UndoPostDelete' data-post-id='<%= post.id %>'>Undo.</a></div>
   <% end %>
-  <div class='PostContent  <%= "Faded" if post.is_deleted %>'>
+  <div class='PostContent <%= "Faded" if post.is_deleted %>'>
     <div>
       <%= image_tag(post.image_url, class: 'PostImage') %>
       <span class='PostEmbed'>
-        <%= post.embed_code if Rails.env.production? %>
+        <%= post.embed_code %>
+        <span class='DownloadButton'>
+          <a href='<%= post.download_link %>' class='radius button' target download>Download</a>
+        </span>
       </span>
     </div>
-    <div class=''>
+    <div class='PostBody'>
       <%= post.title.to_html('h1') %>
       <% if !post.body.blank? %>
         <%= post.body.to_html('p') %>
@@ -28,10 +31,6 @@
         <%= post.twitter_button %>
       </span>
       <span class='PostActions right'>
-        <span class='DownloadButton'>
-          <a href='<%= post.download_link %>' class='' target download>Download</a>
-        </span>
-        &bull;
         <span class='CommentLink'>
           <%= link_to 'Say something&hellip;'.html_safe, '#', title: 'I\'m giving up on you' %>
         </span>

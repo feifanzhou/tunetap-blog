@@ -85,7 +85,7 @@ class Post < ActiveRecord::Base
     if self.player_type == 'bopfm'
       return self.player_embed.html_safe
     elsif self.player_type == 'soundcloud'
-      return "<iframe width='100%' height='202' scrolling='no' frameborder='no' src='#{ self.player_embed }'></iframe>".html_safe
+      return "<iframe width='100%' height='180' scrolling='no' frameborder='no' src='#{ self.player_embed }'></iframe>".html_safe
     end
   end
 
