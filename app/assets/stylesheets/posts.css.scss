@@ -68,6 +68,27 @@
       display: inline-block;
       // margin-left: 8px;
     }
+    @media(max-width: 630px) {
+      .PostImage {
+        display: block;
+        height: auto;
+        margin-bottom: 0.5em;
+        width: 100%;
+      }
+      .PostEmbed {
+        display: block;
+        width: 100% !important;
+        iframe {
+          width: 100%;
+        }
+      }
+      .PostBody {
+        margin-top: 4em;
+        h1 {
+          font-size: 1.5em;
+        }
+      }
+    }
   }
   &.BopPost {
     .PostEmbed {
@@ -95,6 +116,9 @@
 }
 
 .CreatePost {
+  @media(max-width: 630px) {
+    display: none;
+  }
   .TagSuggestionsContainer {
     background: transparentize(white, 0.1);
     border-bottom: 1px dotted #CCC;

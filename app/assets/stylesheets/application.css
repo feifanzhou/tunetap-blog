@@ -70,3 +70,43 @@
   position: relative;
   top: 30px;
 }
+
+@media(max-width: 929px) {
+  #container {
+    width: 620px;
+  }
+  #left {
+    height: 40px;
+    margin-top: 10px;
+  }
+  #logo {
+    top: 0;
+  }
+  #content {
+    clear: both;
+    display: block;
+  }
+  #right {
+    /*clear: both;*/
+    display: none;
+  }
+}
+@media(max-width: 629px) {
+  #container, #footer {
+    width: 420px;
+  }
+  #left {
+    display: block;
+    float: none;
+    text-align: center;
+    width: 100%;
+  }
+  #logo {
+    float: none;
+  }
+}
+@media(max-width: 429px) {
+  #container, #footer {
+    width: 320px;
+  }
+}
