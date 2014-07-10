@@ -63,14 +63,20 @@ describe 'New contributor signup' do
     end
   end
 
-  it 'remembers login after creating account' do
-    go_signup('letmein')
-    visit "/contributors/#{ Contributor.last.id }"
-    expect(page.status_code).to eq(200)
-  end
+  describe 'after creating account' do
+    before :each do
+      FactoryGirl.create :invitation
+    end
+    
+    it 'remembers login after creating account' do
+      go_signup('letmein')
+      visit "/contributors/#{ Contributor.last.id }"
+      expect(page.status_code).to eq(200)
+    end
 
-  it 'goes to home page with New Post fields' do
-    go_signup('letmein')
-    expect(page).to have_content 'New Post'
+    it 'goes to home page with New Post fields' do
+      go_signup('letmein')
+      expect(page).to have_content 'New Post'
+    end
   end
 end

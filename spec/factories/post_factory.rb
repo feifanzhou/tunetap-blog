@@ -26,18 +26,21 @@ FactoryGirl.define do
     player_embed 'soundcloud.com'
     player_type 'unknown'
     twitter_text 'To be tweeted'
+    is_deleted false
   end
 
   factory :soundcloud_post, class: Post do
     contributor_id 1
     player_embed 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/151835201&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true'
     player_type 'soundcloud'
+    is_deleted false
   end
 
   factory :bop_post, class: Post do
     contributor_id 1
     player_embed '<a data-width="358" data-bop-link href="http://bop.fm/s/lana-del-rey/west-coast">Lana Del Rey - West Coast | Listen for free at bop.fm</a><script async src="http://assets.bop.fm/embed.js"></script>'
     player_type 'bopfm'
+    is_deleted false
   end
 end
 

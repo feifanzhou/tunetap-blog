@@ -27,7 +27,7 @@ class ContributorsController < ApplicationController
     c.is_admin = invitation.blank? ? Contributor.count < 1 : invitation.should_be_admin
     c.received_invitation = invitation
     c.save
-    invitation.is_accepted = true
+    invitation.is_accepted = true if !invitation.blank?
     cookies.signed.permanent[:remember_token] = c.remember_token
     redirect_to root_path
   end

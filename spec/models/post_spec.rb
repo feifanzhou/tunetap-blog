@@ -104,6 +104,6 @@ describe 'Post embed code' do
     post = FactoryGirl.create :post
     post.process_player_embed('<iframe width="100%" height="300" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/151835201&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true"></iframe>')
     expect(post.player_type).to eq('soundcloud')
-    expect(post.player_embed).to eq('https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/151835201&amp;color=F16214&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;')
+    expect(post.player_embed).to eq('https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/151835201&amp;color=F6921E&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;')
   end
 end

@@ -19,7 +19,7 @@ describe 'Contributor collection page' do
     path = "/contributors/#{ author_id }"
     visit path
     expect(page).to have_content "#{ @author.name }'s posts"
-    expect(page).to have_content 'Lorem ipsum dolor sit amet'
+    expect(page).to have_content 'Lorem ipsum'
   end
 end
 

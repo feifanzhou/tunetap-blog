@@ -16,7 +16,7 @@ describe 'Search' do
       expect(page).to_not have_content('No results found')
     end
 
-    it 'should show "No results found" when search comes up blank' do
+    it 'should show "No results found" when search comes up blank', js: true do
       fill_in 'searchField', with: 'asontehuntoehtnuh'
       expect(page).to have_content 'No results found'
     end
