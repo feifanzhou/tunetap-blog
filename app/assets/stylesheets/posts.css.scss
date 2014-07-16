@@ -20,7 +20,7 @@
 }
 
 .Block {
-  &.BopPost, &.SoundcloudPost, &.SpotifyPost {
+  &.BopPost, &.SoundcloudPost, &.SpotifyPost, &.YoutubePost {
     position: relative;
     .DeletePost {
       color: #AAA;
@@ -124,6 +124,40 @@
     }
     footer {
       margin-top: 0.6em;
+    }
+  }
+  &.YoutubePost {
+    .PostEmbed {
+      height: 350px;
+      width: 100%;
+    }
+    .PostBody {
+      .PostImage {
+        display: inline-block;
+        margin-right: 7px;
+        height: 220px;
+        width: 220px;
+      }
+      .PostText {
+        display: inline-block;
+        width: 358px;
+      }
+    }
+    .PostMeta {
+      margin-top: 1em;
+    }
+    @media(max-width: 629px) {
+      .PostEmbed {
+        height: 250px;
+      }
+      .PostBody {
+        margin-top: 1em;
+      }
+    }
+    @media(max-width: 429px) {
+      .PostEmbed {
+        height: 200px;
+      }
     }
   }
   &.NewPost {

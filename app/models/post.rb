@@ -29,7 +29,7 @@ class Post < ActiveRecord::Base
 
   validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
   validates :contributor_id, presence: true, numericality: { greater_than: 0 }
-  validates :player_type, presence: true, inclusion: { in: ['soundcloud', 'bopfm', 'spotify', 'youtube', 'unknown'] }
+  validates :player_type, presence: true, inclusion: { in: ['soundcloud', 'bopfm', 'spotify', 'youtube', 'vimeo', 'unknown'] }
   # FIXME — Make sure post has title
 
   def self.embed_color
@@ -55,6 +55,8 @@ class Post < ActiveRecord::Base
       process_soundcloud_embed(self, embed_link)
     elsif embed_link.include? 'spotify'
       process_spotify_embed(self, embed_link)
+    elsif embed_link.include? 'youtube'
+      process_youtube_embed(self, embed_link)
     else
       process_unknown_embed(self, embed_link)
     end
@@ -67,6 +69,8 @@ class Post < ActiveRecord::Base
       return "<iframe width='100%' height='180' scrolling='no' frameborder='no' src='#{ self.player_embed }'></iframe>".html_safe
     elsif self.player_type == 'spotify'
       return "<iframe src='https://embed.spotify.com/?uri=#{ self.player_embed }&theme=white' width='280' height='360' frameborder='0' allowtransparency='true'></iframe>".html_safe
+    elsif self.player_type == 'youtube'
+      return "<iframe width='100%' height='100%' src='//www.youtube.com/embed/#{ self.player_embed }?rel=0' frameborder='0' allowfullscreen></iframe>".html_safe
     end
   end
 

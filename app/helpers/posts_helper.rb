@@ -25,6 +25,8 @@ module PostsHelper
       render partial: 'shared/post_body_soundcloud', formats: [:html], locals: { post: post, is_new_post: is_new_post, is_logged_in: is_logged_in }
     elsif post.player_type == 'spotify'
       render partial: 'shared/post_body_spotify', formats: [:html], locals: { post: post, is_new_post: is_new_post, is_logged_in: is_logged_in }
+    elsif post.player_type == 'youtube'
+      render partial: 'shared/post_body_youtube', formats: [:html], locals: { post: post, is_new_post: is_new_post, is_logged_in: is_logged_in }
     # else
     #   render html: '<p>Invalid post embed format</p>'.html_safe
     end
@@ -73,6 +75,20 @@ module PostsHelper
     end
     post.player_embed = spotify_uri
     post.player_type = 'spotify'
+  end
+  def process_youtube_embed(post, embed_link)
+    start_index = embed_link.index '?v='
+    if !start_index  # Got embed code
+      start_index = embed_link.index('/embed') + 7
+      end_index = embed_link.index('?rel') || embed_link.index('"', start_index)
+      end_index -= 1  # Don't want any of that other stuff
+    else  # Got URL
+      start_index += 3
+      end_index = embed_link.index('&') || (embed_link.length - 1)
+    end
+    youtube_uri = embed_link[start_index..end_index]
+    post.player_embed = youtube_uri
+    post.player_type = 'youtube'
   end
   def process_unknown_embed(post, embed_link)
     post.player_type = 'unknown'
