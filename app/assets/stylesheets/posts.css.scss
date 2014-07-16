@@ -20,7 +20,7 @@
 }
 
 .Block {
-  &.BopPost, &.SoundcloudPost {
+  &.BopPost, &.SoundcloudPost, &.SpotifyPost {
     position: relative;
     .DeletePost {
       color: #AAA;
@@ -102,6 +102,28 @@
     position: relative;
     .PostEmbed {
       width: 348px;
+    }
+  }
+  &.SpotifyPost {
+    .PostEmbed {
+      display: inline-block;
+      height: auto;
+      vertical-align: top;
+      width: 280px;
+    }
+    .PostBody {
+      display: inline-block;
+      margin-right: 7px;
+      margin-top: 0;
+      vertical-align: top;
+      width: 283px;
+      .PostImage {
+        height: 283px;
+        width: 283px;
+      }
+    }
+    footer {
+      margin-top: 0.6em;
     }
   }
   &.NewPost {

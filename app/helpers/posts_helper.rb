@@ -23,8 +23,58 @@ module PostsHelper
       render partial: 'shared/post_body_bop', formats: [:html], locals: { post: post, is_new_post: is_new_post, is_logged_in: is_logged_in }
     elsif post.player_type == 'soundcloud'
       render partial: 'shared/post_body_soundcloud', formats: [:html], locals: { post: post, is_new_post: is_new_post, is_logged_in: is_logged_in }
+    elsif post.player_type == 'spotify'
+      render partial: 'shared/post_body_spotify', formats: [:html], locals: { post: post, is_new_post: is_new_post, is_logged_in: is_logged_in }
     # else
     #   render html: '<p>Invalid post embed format</p>'.html_safe
     end
+  end
+
+  def process_bop_embed(post, embed_link)
+    post.player_embed = embed_link
+    post.player_type = 'bopfm'
+  end
+  def process_soundcloud_embed(post, embed_link)
+    src_index = embed_link.index 'src='
+    unless src_index.blank?
+      src_index += 5
+      end_index = embed_link.index('>') - 2
+      new_link = embed_link[src_index..end_index]
+    end
+
+    color_index = new_link.index('color=')
+    if color_index.blank?
+      amp_index = new_link.index('&amp;')
+      color_str = "&amp;color=#{ Post.embed_color }"
+      new_link.insert(amp_index, color_str)
+    else
+      color_index += 6
+      color_end_index = color_index + 6
+      new_link[color_index...color_end_index] = Post.embed_color
+    end
+
+    # FIXME — Visual removal not working yet
+    visual_index = new_link.index('visual=true')
+    new_link = new_link[0...visual_index] if !visual_index.blank?
+
+    post.player_embed = new_link
+    post.player_type = 'soundcloud'
+  end
+  def process_spotify_embed(post, embed_link)
+    uri_index = embed_link.index 'spotify:'
+    if uri_index == 0  # Link is just URI
+      spotify_uri = embed_link
+    else  # Extract URL from embed code
+      comps = embed_link.split
+      src = comps.find{ |c| c.index('src=') == 0 }
+      uri_start_index = src.index('uri=') + 4
+      uri_end_index = src.index('&') || (src.length - 1) # -1 for end quote
+      spotify_uri = src[uri_start_index...uri_end_index]
+    end
+    post.player_embed = spotify_uri
+    post.player_type = 'spotify'
+  end
+  def process_unknown_embed(post, embed_link)
+    post.player_type = 'unknown'
   end
 end

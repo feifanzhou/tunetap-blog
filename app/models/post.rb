@@ -29,9 +29,12 @@ class Post < ActiveRecord::Base
 
   validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
   validates :contributor_id, presence: true, numericality: { greater_than: 0 }
-  validates :player_type, presence: true, inclusion: { in: ['soundcloud', 'bopfm', 'unknown'] }
+  validates :player_type, presence: true, inclusion: { in: ['soundcloud', 'bopfm', 'spotify', 'youtube', 'unknown'] }
   # FIXME — Make sure post has title
 
+  def self.embed_color
+    return 'F6921E'
+  end
   def embed_color
     return 'F6921E'
   end
@@ -44,40 +47,16 @@ class Post < ActiveRecord::Base
     end
   end
 
+  include PostsHelper
   def process_player_embed(embed_link)
     if embed_link.include? 'bop.fm'
-      self.player_embed = embed_link
-      self.player_type = 'bopfm'
+      process_bop_embed(self, embed_link)
     elsif embed_link.include? 'soundcloud.com'
-      # FIXME — Clean up ugly code
-      # Make sure to use short player
-      # And set the correct color
-      src_index = embed_link.index 'src='
-      unless src_index.blank?
-        src_index += 5
-        end_index = embed_link.index('>') - 2
-        new_link = embed_link[src_index..end_index]
-      end
-
-      color_index = new_link.index('color=')
-      if color_index.blank?
-        amp_index = new_link.index('&amp;')
-        color_str = "&amp;color=#{ self.embed_color }"
-        new_link.insert(amp_index, color_str)
-      else
-        color_index += 6
-        color_end_index = color_index + 6
-        new_link[color_index...color_end_index] = self.embed_color
-      end
-
-      # FIXME — Visual removal not working yet
-      visual_index = new_link.index('visual=true')
-      new_link = new_link[0...visual_index] if !visual_index.blank?
-
-      self.player_embed = new_link
-      self.player_type = 'soundcloud'
+      process_soundcloud_embed(self, embed_link)
+    elsif embed_link.include? 'spotify'
+      process_spotify_embed(self, embed_link)
     else
-      self.player_type = 'unknown'
+      process_unknown_embed(self, embed_link)
     end
   end
 
@@ -86,6 +65,8 @@ class Post < ActiveRecord::Base
       return self.player_embed.html_safe
     elsif self.player_type == 'soundcloud'
       return "<iframe width='100%' height='180' scrolling='no' frameborder='no' src='#{ self.player_embed }'></iframe>".html_safe
+    elsif self.player_type == 'spotify'
+      return "<iframe src='https://embed.spotify.com/?uri=#{ self.player_embed }&theme=white' width='280' height='360' frameborder='0' allowtransparency='true'></iframe>".html_safe
     end
   end
 
@@ -152,7 +133,6 @@ class Post < ActiveRecord::Base
     body.content
   end
 
-  include PostsHelper
   def facebook_buttons
     fb_buttons_for_post(self)
   end
