@@ -27,6 +27,8 @@ module PostsHelper
       render partial: 'shared/post_body_spotify', formats: [:html], locals: { post: post, is_new_post: is_new_post, is_logged_in: is_logged_in }
     elsif post.player_type == 'youtube'
       render partial: 'shared/post_body_youtube', formats: [:html], locals: { post: post, is_new_post: is_new_post, is_logged_in: is_logged_in }
+    elsif post.player_type == 'vimeo'
+      render partial: 'shared/post_body_vimeo', formats: [:html], locals: { post: post, is_new_post: is_new_post, is_logged_in: is_logged_in }
     # else
     #   render html: '<p>Invalid post embed format</p>'.html_safe
     end
@@ -89,6 +91,18 @@ module PostsHelper
     youtube_uri = embed_link[start_index..end_index]
     post.player_embed = youtube_uri
     post.player_type = 'youtube'
+  end
+  def process_vimeo_embed(post, embed_link)
+    if embed_link.include? 'src='  # Got embed code
+      start_index = embed_link.index('src=') + 30
+      end_index = embed_link.index('?', start_index) || embed_link.index('"', start_index)
+      vimeo_uri = embed_link[start_index...end_index]  # Yes, three dots
+    else  # Got URL
+      pieces = embed_link.split('/')
+      vimeo_uri = pieces.last
+    end
+    post.player_embed = vimeo_uri
+    post.player_type = 'vimeo'
   end
   def process_unknown_embed(post, embed_link)
     post.player_type = 'unknown'

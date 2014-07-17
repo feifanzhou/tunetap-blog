@@ -20,7 +20,7 @@
 }
 
 .Block {
-  &.BopPost, &.SoundcloudPost, &.SpotifyPost, &.YoutubePost {
+  &.BopPost, &.SoundcloudPost, &.SpotifyPost, &.YoutubePost, &.VimeoPost {
     position: relative;
     .DeletePost {
       color: #AAA;
@@ -126,7 +126,7 @@
       margin-top: 0.6em;
     }
   }
-  &.YoutubePost {
+  &.YoutubePost, &.VimeoPost {
     .PostEmbed {
       height: 350px;
       width: 100%;
@@ -157,6 +157,21 @@
     @media(max-width: 429px) {
       .PostEmbed {
         height: 200px;
+      }
+    }
+  }
+  &.VimeoPost {
+    .PostEmbed {
+      height: 340px;
+    }
+    @media(max-width: 629px) {
+      .PostEmbed {
+        height: 230px;
+      }
+    }
+    @media(max-width: 429px) {
+      .PostEmbed {
+        height: 170px;
       }
     }
   }

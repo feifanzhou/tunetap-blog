@@ -57,6 +57,8 @@ class Post < ActiveRecord::Base
       process_spotify_embed(self, embed_link)
     elsif embed_link.include? 'youtube'
       process_youtube_embed(self, embed_link)
+    elsif embed_link.include? 'vimeo'
+      process_vimeo_embed(self, embed_link)
     else
       process_unknown_embed(self, embed_link)
     end
@@ -71,6 +73,8 @@ class Post < ActiveRecord::Base
       return "<iframe src='https://embed.spotify.com/?uri=#{ self.player_embed }&theme=white' width='280' height='360' frameborder='0' allowtransparency='true'></iframe>".html_safe
     elsif self.player_type == 'youtube'
       return "<iframe width='100%' height='100%' src='//www.youtube.com/embed/#{ self.player_embed }?rel=0' frameborder='0' allowfullscreen></iframe>".html_safe
+    elsif self.player_type == 'vimeo'
+      return "<iframe src='//player.vimeo.com/video/#{ self.player_embed }?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;color=#{ Post.embed_color }' width='100%' height='100%' frameborder='0' webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>".html_safe
     end
   end
 
