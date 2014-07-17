@@ -107,3 +107,68 @@ describe 'Post embed code' do
     expect(post.player_embed).to eq('https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/151835201&amp;color=F6921E&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;')
   end
 end
+
+describe 'Post embed code' do
+  let(:post) { Post.new }
+
+  it 'generates correctly for bop.fm' do
+    post.process_player_embed '<a data-width="358" data-bop-link href="http://bop.fm/s/train/angel-in-blue-jeans">Train - Angel in Blue Jeans | Listen for free at bop.fm</a><script async src="http://assets.bop.fm/embed.js"></script>'
+    expect(post.player_type).to eq 'bopfm'
+    expect(post.embed_code).to eq '<a data-width="358" data-bop-link href="http://bop.fm/s/train/angel-in-blue-jeans">Train - Angel in Blue Jeans | Listen for free at bop.fm</a><script async src="http://assets.bop.fm/embed.js"></script>'
+  end
+
+  it 'generates correctly for Soundcloud embed' do
+    post.process_player_embed '<iframe width="100%" height="450" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/43547217&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true"></iframe>'
+    expect(post.player_type).to eq 'soundcloud'
+    expect(post.embed_code).to eq "<iframe width='100%' height='180' scrolling='no' frameborder='no' src='https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/43547217&amp;color=F6921E&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;'></iframe>"
+  end
+
+  it 'generates correctly for Spotify URI' do
+    post.process_player_embed 'spotify:user:spotify:playlist:2vijibRoPenmkvVIAidgYK'
+    expect(post.player_type).to eq 'spotify'
+    expect(post.embed_code).to eq "<iframe src='https://embed.spotify.com/?uri=spotify:user:spotify:playlist:2vijibRoPenmkvVIAidgYK&theme=white' width='280' height='360' frameborder='0' allowtransparency='true'></iframe>"
+  end
+  it 'generates correctly for Spotify embed' do
+    post.process_player_embed '<iframe src="https://embed.spotify.com/?uri=spotify:user:spotify:playlist:2vijibRoPenmkvVIAidgYK" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>'
+    expect(post.player_type).to eq 'spotify'
+    expect(post.embed_code).to eq "<iframe src='https://embed.spotify.com/?uri=spotify:user:spotify:playlist:2vijibRoPenmkvVIAidgYK&theme=white' width='280' height='360' frameborder='0' allowtransparency='true'></iframe>"
+  end
+  it 'generates correctly for Spotify embed with GET params' do
+    post.process_player_embed '<iframe src="https://embed.spotify.com/?uri=spotify:user:spotify:playlist:2vijibRoPenmkvVIAidgYK&theme=white" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>'
+    expect(post.player_type).to eq 'spotify'
+    expect(post.embed_code).to eq "<iframe src='https://embed.spotify.com/?uri=spotify:user:spotify:playlist:2vijibRoPenmkvVIAidgYK&theme=white' width='280' height='360' frameborder='0' allowtransparency='true'></iframe>"
+  end
+
+  it 'generates correctly for Youtube URI' do
+    post.process_player_embed 'https://www.youtube.com/watch?v=JS2qBSV8xVk'
+    expect(post.player_type).to eq 'youtube'
+    expect(post.embed_code).to eq "<iframe width='100%' height='100%' src='//www.youtube.com/embed/JS2qBSV8xVk?rel=0' frameborder='0' allowfullscreen></iframe>"
+  end
+  it 'generates correctly for Youtube embed' do
+    post.process_player_embed '<iframe width="640" height="360" src="//www.youtube.com/embed/JS2qBSV8xVk" frameborder="0" allowfullscreen></iframe>'
+    expect(post.player_type).to eq 'youtube'
+    expect(post.embed_code).to eq "<iframe width='100%' height='100%' src='//www.youtube.com/embed/JS2qBSV8xVk?rel=0' frameborder='0' allowfullscreen></iframe>"
+  end
+  it 'generates correctly for Youtube embed with GET params' do
+    post.process_player_embed '<iframe width="640" height="360" src="//www.youtube.com/embed/JS2qBSV8xVk?rel=0" frameborder="0" allowfullscreen></iframe>'
+    expect(post.player_type).to eq 'youtube'
+    expect(post.embed_code).to eq "<iframe width='100%' height='100%' src='//www.youtube.com/embed/JS2qBSV8xVk?rel=0' frameborder='0' allowfullscreen></iframe>"
+  end
+
+  it 'generates correctly for Vimeo embed' do
+    post.process_player_embed '<iframe src="//player.vimeo.com/video/97897747?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;color=ffffff" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>'
+    expect(post.player_type).to eq 'vimeo'
+    expect(post.embed_code).to eq "<iframe src='//player.vimeo.com/video/97897747?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;color=F6921E' width='100%' height='100%' frameborder='0' webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>"
+  end
+  it 'generates correctly for Vimeo detailed URL' do
+    post.process_player_embed 'http://vimeo.com/channels/darkrye/91720717'
+    expect(post.player_type).to eq 'vimeo'
+    expect(post.embed_code).to eq "<iframe src='//player.vimeo.com/video/91720717?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;color=F6921E' width='100%' height='100%' frameborder='0' webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>"
+  end
+  it 'generates correctly for Vimeo short URL' do
+    post.process_player_embed 'http://vimeo.com/17111870'
+    expect(post.player_type).to eq 'vimeo'
+    expect(post.embed_code).to eq "<iframe src='//player.vimeo.com/video/17111870?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;color=F6921E' width='100%' height='100%' frameborder='0' webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>"
+  end
+
+end
