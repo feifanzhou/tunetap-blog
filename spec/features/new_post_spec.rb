@@ -51,16 +51,16 @@ describe 'Filling in a new post' do
     expect_page_to_not_have_tag_suggestions
   end
 
-  describe 'with tag-matching title input' do
-    it 'shows tag suggestions', js: true do
+  context 'with tag-matching title input', js: true do
+    before :each do
       fill_in 'titleInput', with: 'tag'
+    end
+    subject { page }
+    it 'shows tag suggestions' do
       expect_page_to_have_tag_suggestions
     end
 
-    it 'selects the first tag', js: true do
-      fill_in 'titleInput', with: 'tag'
-      expect(page).to have_selector 'li.Selected', text: 'tag1'
-    end
+    it { is_expected.to have_selector 'li.Selected', text: 'tag1' }
 
     # FIXME — Keypress tests not really working yet
     # https://github.com/thoughtbot/capybara-webkit/issues/191#issuecomment-3892991
@@ -89,16 +89,16 @@ describe 'Filling in a new post' do
     #   expect(page).to have_selector 'li.Selected', text: 'tag2'
     # end
   end
-  describe 'with tag-matching content input' do
-    it 'shows tag suggestions', js: true do
+  context 'with tag-matching content input', js: true do
+    before :each do
       fill_in 'contentInput', with: 'tag'
+    end
+    subject { page }
+    it 'shows tag suggestions' do
       expect_page_to_have_tag_suggestions
     end
 
-    it 'selects the first tag', js: true do
-      fill_in 'contentInput', with: 'tag'
-      expect(page).to have_selector 'li.Selected', text: 'tag1'
-    end
+    it { is_expected.to have_selector 'li.Selected', text: 'tag1' }
   end
   # Can't send keypresses… :(
   describe 'and selecting a tag suggestion' do
@@ -107,8 +107,8 @@ describe 'Filling in a new post' do
     # it 'clears tag suggestions list'
   end
 
-  describe 'and submitting it' do
-    describe 'without an embed' do
+  context 'and submitting it' do
+    context 'without an embed' do
       it 'fails to save' do
         post_count = Post.count
         fill_in 'titleInput', with: 'Test title'
@@ -117,7 +117,7 @@ describe 'Filling in a new post' do
         expect(Post.count).to eq(post_count)
       end
     end
-    describe 'without tags' do
+    context 'without tags' do
       it 'saves a post in the database' do
         post_count = Post.count
         fill_in 'titleInput', with: 'Test title'
@@ -127,7 +127,7 @@ describe 'Filling in a new post' do
         expect(Post.count).to eq(post_count)
       end
     end
-    describe 'with tags' do
+    context 'with tags' do
       # it 'saves a post, tagged text and tag ranges in the database'
     end
 
