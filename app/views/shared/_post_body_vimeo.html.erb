@@ -13,7 +13,7 @@
       <%= post.embed_code %>
     </div>
     <div class='PostBody'>
-      <%= image_tag(post.image_url, class: 'PostImage') %>
+      <%#= image_tag(post.image_url, class: 'PostImage') %>
       <div class='PostText'>
         <%= post.title.to_html('h1') %>
         <% if !post.body.blank? %>
