@@ -1,0 +1,23 @@
+# == Schema Information
+#
+# Table name: sessions
+#
+#  id           :integer          not null, primary key
+#  ip_address   :string(255)
+#  session_code :string(255)
+#  last_active  :datetime
+#  created_at   :datetime
+#  updated_at   :datetime
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ip_address: MyString
+  session_code: MyString
+  last_active: 2014-08-08 17:06:33
+
+two:
+  ip_address: MyString
+  session_code: MyString
+  last_active: 2014-08-08 17:06:33
