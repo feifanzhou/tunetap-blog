@@ -20,16 +20,6 @@
     <div class='PostEmbed'>
       <%= post.embed_code %>
     </div>
-    <footer class='clearfix'>
-      <span class='SocialActions left'>
-        <%= post.facebook_buttons %>
-        <%= post.twitter_button %>
-      </span>
-      <span class='PostActions right'>
-        <span class='CommentLink'>
-          <%= link_to 'Say something&hellip;'.html_safe, '#', title: 'I\'m giving up on you' %>
-        </span>
-      </span>
-    </footer>
+    <%= render 'shared/post_footer', post: post %>
   </div>
 </div>
