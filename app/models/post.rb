@@ -131,14 +131,14 @@ class Post < ActiveRecord::Base
     self.tagged_texts.where('content_type = ?', 'title').first
   end
   def title_text
-    self.title.content
+    self.title ? self.title.content : ''
   end
 
   def body
     self.tagged_texts.where('content_type = ?', 'body').first
   end
   def body_text
-    body.content
+    self.body ? self.body.content : ''
   end
 
   def facebook_buttons
