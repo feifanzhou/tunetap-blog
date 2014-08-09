@@ -13,9 +13,11 @@
       <%= image_tag(post.image_url, class: 'PostImage') %>
       <span class='PostEmbed'>
         <%= post.embed_code unless Rails.env.development? %>
-        <span class='DownloadButton'>
-          <a href='<%= post.download_link %>' class='radius button' target download>Download</a>
-        </span>
+        <% unless post.download_link.blank? %>
+          <span class='DownloadButton'>
+            <a href='<%= post.download_link %>' class='radius button' target download>Download</a>
+          </span>
+        <% end %>
       </span>
     </div>
     <div class='PostBody'>
