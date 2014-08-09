@@ -63,7 +63,7 @@ class Post < ActiveRecord::Base
     else
       process_unknown_embed(self, embed_link)
     end
-    post.original_code = embed_link
+    self.original_code = embed_link
   end
 
   def embed_code
@@ -92,8 +92,18 @@ class Post < ActiveRecord::Base
         body = TaggedText.new(tagged_text)
       end
     end
-    title.post = self and title.save if !title.blank?
-    body.post = self and body.save if !body.blank?
+    unless title.blank?
+      current_title = TaggedText.find_by_post_id_and_content_type(self.id, 'title')
+      current_title.destroy if current_title
+      title.post = self
+      title.save
+    end
+    unless body.blank?
+      current_body = TaggedText.find_by_post_id_and_content_type(self.id, 'body')
+      current_body.destroy if current_body
+      body.post = self
+      body.save
+    end
 
     return if tag_ranges.blank?
     tag_ranges.each do |tr|

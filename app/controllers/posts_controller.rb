@@ -14,6 +14,10 @@ class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
     @vote = Vote.find_by_post_id_and_session_id(params[:id], active_session.id)
+    @is_logged_in = false
+    if !cookies.signed[:remember_token].blank?
+      @is_logged_in = Contributor.exists?(remember_token: cookies.signed[:remember_token])
+    end
   end
 
   include PostsHelper
@@ -24,11 +28,16 @@ class PostsController < ApplicationController
     @author = Contributor.find_by_remember_token(cookies.signed[:remember_token])
     new_post = Post.new(post_params)
     new_post.contributor = @author
-    new_post.process_player_embed(params[:post][:embed_link])
+    new_post.process_player_embed(params[:post][:original_code])
     new_post.is_deleted = false
     new_post.save
     new_post.save_content(params[:post][:tagged_texts], params[:post][:tag_ranges], @author)
-    render_post_partial(new_post, true)
+
+    @is_logged_in = false
+    if !cookies.signed[:remember_token].blank?
+      @is_logged_in = Contributor.exists?(remember_token: cookies.signed[:remember_token])
+    end
+    render_post_partial(new_post, nil, false, @is_logged_in)
   end
 
   def edit
@@ -40,10 +49,14 @@ class PostsController < ApplicationController
     if is_not_contributor
       render status: :unauthorized and return
     end
+    @author = Contributor.find_by_remember_token(cookies.signed[:remember_token])
     post = Post.find(params[:id])
-    post.is_deleted = params[:post][:is_deleted]
+    post.update_attributes(post_params)
+    post.process_player_embed(params[:post][:original_code])
     post.save
-    render json: { success: 1 }
+    post.save_content(params[:post][:tagged_texts], params[:post][:tag_ranges], @author)
+    # post.save
+    render json: { success: true, post_path: post_path(post) }
   end
 
   def destroy
@@ -58,6 +71,6 @@ class PostsController < ApplicationController
 
   private
   def post_params
-    params.require(:post).permit(:image_url, :download_link, :twitter_text, :facebook_text, :is_deleted)
+    params.require(:post).permit(:image_url, :download_link, :twitter_text, :facebook_text, :is_deleted, :original_code)
   end
 end

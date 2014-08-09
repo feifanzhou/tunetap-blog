@@ -183,7 +183,7 @@ $('body').on('click', '#newPostPublish', ->
       }
     ]
     tag_ranges: TagSug.tags
-    embed_link: $('#embedInput').val()
+    original_code: $('#embedInput').val()
     image_url: $('#imageInput').val()
     download_link: $('#downloadInput').val()
     twitter_text: $('#twitterInput').val()
@@ -205,6 +205,35 @@ $('body').on('click', '#newPostPublish', ->
         scrollTop: (0.75 * newPostTop)
       }, 500)
       setTimeout( (-> $('.NewPost').removeClass('NewPost')), 1500)
+)
+
+$('body').on('click', '#updatePost', (e) ->
+  post = {
+    tagged_texts: [
+      {
+        content_type: 'title'
+        content: $('#titleInput').val()
+      },
+      {
+        content_type: 'body'
+        content: $('#contentInput').val()
+      }
+    ]
+    tag_ranges: TagSug.tags
+    original_code: $('#embedInput').val()
+    image_url: $('#imageInput').val()
+    download_link: $('#downloadInput').val()
+    twitter_text: $('#twitterInput').val()
+    is_deleted: false
+  }
+  $.ajax ('/posts/' + e.target.getAttribute('data-post-id')),
+    type: 'PATCH'
+    data: { post: post }
+    dataType: 'json'
+    error: (jqXHR, textStatus, errorThrown) ->
+      console.log('Error updating: ' + errorThrown)
+    success: (resp) ->
+      window.location = resp.post_path
 )
 
 # =========== Select + create new tags ==========
