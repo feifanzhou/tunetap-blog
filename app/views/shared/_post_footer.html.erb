@@ -1,4 +1,8 @@
 <footer class='clearfix'>
+  <span class='Voting left'>
+    <span class='fa fa-thumbs-up PostUpvote <%= 'VoteActive' if vote && !vote.is_deleted && vote.is_upvote %>' data-post-id='<%= post.id %>'></span>
+    <span class='fa fa-thumbs-down PostDownvote <%= 'VoteActive' if vote && !vote.is_deleted && !vote.is_upvote %>' data-post-id='<%= post.id %>'></span>
+  </span>
   <span class='SocialActions left'>
     <%= post.facebook_buttons %>
     <%= post.twitter_button %>

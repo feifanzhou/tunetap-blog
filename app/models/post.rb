@@ -147,4 +147,12 @@ class Post < ActiveRecord::Base
   def twitter_button
     twitter_button_for_post(self)
   end
+
+  def vote_for_session(session)
+    Vote.find_by_post_id_and_session_id(self.id, session.id)
+  end
+  include SessionsHelper
+  def current_vote
+    vote_for_session(active_session)
+  end
 end

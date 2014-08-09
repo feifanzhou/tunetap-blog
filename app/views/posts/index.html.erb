@@ -4,7 +4,8 @@
 <% end %>
 <div id='posts'>
   <% @posts.each do |p| %>
-    <%= render_post_partial(p, false, @is_logged_in) %>
+    <% vote = (@votes.select { |vote| vote.post_id == p.id }).first %>
+    <%= render_post_partial(p, vote, false, @is_logged_in) %>
   <% end %>
 </div>
 <% if @page_count > 1 %>

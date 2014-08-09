@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140808210633) do
+ActiveRecord::Schema.define(version: 20140809004118) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -110,5 +110,14 @@ ActiveRecord::Schema.define(version: 20140808210633) do
   end
 
   add_index "tags", ["contributor_id"], name: "index_tags_on_contributor_id", using: :btree
+
+  create_table "votes", force: true do |t|
+    t.integer  "post_id"
+    t.integer  "session_id"
+    t.boolean  "is_deleted"
+    t.boolean  "is_upvote"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end

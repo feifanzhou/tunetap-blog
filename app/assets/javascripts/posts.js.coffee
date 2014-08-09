@@ -290,3 +290,35 @@ $('body').on('click', '.UndoPostDelete', (event) ->
       $(event.target).parents('.Tile').children('.PostDeleted').slideUp()
       $(event.target).parents('.Tile').children('.Faded').removeClass('Faded')
 )
+
+# ========== Voting on posts ==========
+sendVote = (postID, isUpvote, isDeleted) ->
+  $.ajax '/votes',
+    type: 'POST'
+    dataType: 'JSON'
+    data: {
+      post_id: postID
+      is_upvote: isUpvote
+      is_deleted: isDeleted
+    }
+    success: (resp) -> console.log(resp)
+
+toggleVoteDisplay = (target, isDeleted) ->
+  $('.VoteActive').removeClass('VoteActive')
+  if isDeleted
+    $(target).removeClass('VoteActive')
+  else
+    $(target).addClass('VoteActive')
+
+$('body').on('click', '.PostUpvote', (e) ->
+  postID = e.target.getAttribute('data-post-id')
+  isDeleted = $(e.target).hasClass('VoteActive')
+  sendVote(postID, true, isDeleted)
+  toggleVoteDisplay(e.target, isDeleted)
+)
+$('body').on('click', '.PostDownvote', (e) ->
+  postID = e.target.getAttribute('data-post-id')
+  isDeleted = $(e.target).hasClass('VoteActive')
+  sendVote(postID, false, isDeleted)
+  toggleVoteDisplay(e.target, isDeleted)
+)

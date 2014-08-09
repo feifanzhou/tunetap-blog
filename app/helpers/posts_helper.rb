@@ -18,17 +18,17 @@ module PostsHelper
     "<a href='https://twitter.com/share' class='twitter-share-button' data-text='#{ post.twitter_text }' data-url='#{ full_path_for_post(post, false) }' data-via='CamelbackMusic'>Tweet</a> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>".html_safe
   end
 
-  def render_post_partial(post, is_new_post = false, is_logged_in = false)
+  def render_post_partial(post, vote = nil, is_new_post = false, is_logged_in = false)
     if post.player_type == 'bopfm'
-      render partial: 'shared/post_body_bop', formats: [:html], locals: { post: post, is_new_post: is_new_post, is_logged_in: is_logged_in }
+      render partial: 'shared/post_body_bop', formats: [:html], locals: { post: post, vote: vote, is_new_post: is_new_post, is_logged_in: is_logged_in }
     elsif post.player_type == 'soundcloud'
-      render partial: 'shared/post_body_soundcloud', formats: [:html], locals: { post: post, is_new_post: is_new_post, is_logged_in: is_logged_in }
+      render partial: 'shared/post_body_soundcloud', formats: [:html], locals: { post: post, vote: vote, is_new_post: is_new_post, is_logged_in: is_logged_in }
     elsif post.player_type == 'spotify'
-      render partial: 'shared/post_body_spotify', formats: [:html], locals: { post: post, is_new_post: is_new_post, is_logged_in: is_logged_in }
+      render partial: 'shared/post_body_spotify', formats: [:html], locals: { post: post, vote: vote, is_new_post: is_new_post, is_logged_in: is_logged_in }
     elsif post.player_type == 'youtube'
-      render partial: 'shared/post_body_youtube', formats: [:html], locals: { post: post, is_new_post: is_new_post, is_logged_in: is_logged_in }
+      render partial: 'shared/post_body_youtube', formats: [:html], locals: { post: post, vote: vote, is_new_post: is_new_post, is_logged_in: is_logged_in }
     elsif post.player_type == 'vimeo'
-      render partial: 'shared/post_body_vimeo', formats: [:html], locals: { post: post, is_new_post: is_new_post, is_logged_in: is_logged_in }
+      render partial: 'shared/post_body_vimeo', formats: [:html], locals: { post: post, vote: vote, is_new_post: is_new_post, is_logged_in: is_logged_in }
     # else
     #   render html: '<p>Invalid post embed format</p>'.html_safe
     end

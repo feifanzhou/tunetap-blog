@@ -21,4 +21,6 @@ Rails.application.routes.draw do
   get '/contributors/:id/page/:index' => 'contributors#show'
   get '/contributors/:id/:slug' => 'contributors#show'
   resources :invitations
+
+  resources :votes
 end
