@@ -1,6 +1,12 @@
 <footer class='clearfix'>
   <span class='Voting left'>
+    <% if is_logged_in %>
+      <span class='VoteCount'><%= post.upvote_count %></span>
+    <% end %>
     <span class='fa fa-thumbs-up PostUpvote <%= 'VoteActive' if vote && !vote.is_deleted && vote.is_upvote %>' data-post-id='<%= post.id %>'></span>
+    <% if is_logged_in %>
+      <span class='VoteCount'><%= post.downvote_count %></span>
+    <% end %>
     <span class='fa fa-thumbs-down PostDownvote <%= 'VoteActive' if vote && !vote.is_deleted && !vote.is_upvote %>' data-post-id='<%= post.id %>'></span>
   </span>
   <span class='SocialActions left'>

@@ -155,4 +155,10 @@ class Post < ActiveRecord::Base
   def current_vote
     vote_for_session(active_session)
   end
+  def upvote_count
+    Vote.where('post_id=(?) AND is_deleted=false AND is_upvote=true', self.id).count
+  end
+  def downvote_count
+    Vote.where('post_id=(?) AND is_deleted=false AND is_upvote=false', self.id).count
+  end
 end
