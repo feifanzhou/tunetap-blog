@@ -1,0 +1,4 @@
+<% provide(:title, "Edit | #{ @post.title_text }") %>
+<canvas class='BkgBlur' src='<%= @post.image_url %>'></canvas>
+<%= render 'shared/search_bar' %>
+<%= render 'shared/edit_post', post: @post %>

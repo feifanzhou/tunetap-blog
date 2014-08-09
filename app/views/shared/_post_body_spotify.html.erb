@@ -3,6 +3,7 @@
 <div class='<%= classString %>'>
   <% if is_logged_in %>
     <span class='DeletePost' data-post-id='<%= post.id %>'>&times;</span>
+    <span class='EditPost'><a href='<%= edit_post_path(post) %>' class='fa fa-pencil'></a></span>
   <% end %>
   <% if is_logged_in %>
     <% class_string = post.is_deleted ? 'PostDeleted' : 'PostDeleted Hidden' %>

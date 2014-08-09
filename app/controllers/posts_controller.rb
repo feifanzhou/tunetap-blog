@@ -31,6 +31,10 @@ class PostsController < ApplicationController
     render_post_partial(new_post, true)
   end
 
+  def edit
+    @post = Post.find(params[:id])
+  end
+
   include ApplicationHelper
   def update
     if is_not_contributor

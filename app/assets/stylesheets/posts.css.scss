@@ -26,12 +26,27 @@
       color: #AAA;
       font-size: 18px;
       position: absolute;
-      right: 10px;
-      top: 6px;
+      right: 4px;
+      top: 4px;
       @include vendor-prefix(transition, color 0.25s);
       &:hover {
         color: #666;
         cursor: pointer;
+      }
+    }
+    .EditPost {
+      // font-size: 18px;
+      position: absolute;
+      right: 4px;
+      top: 28px;
+      .fa {
+        color: #AAA;
+        font-size: 0.9em; 
+        @include vendor-prefix(transition, color 0.25s);
+        &:hover {
+          color: #666;
+          cursor: pointer;
+        }
       }
     }
     .PostDeleted {
@@ -307,7 +322,7 @@
   #twitterInput {
     border-bottom: none;
   }
-  #newPostPublish {
+  #newPostPublish, #updatePost {
     font-weight: 600;
     margin-bottom: 0.35em;
     margin-top: 1em;

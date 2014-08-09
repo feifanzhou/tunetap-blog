@@ -17,6 +17,7 @@
 #  image_file_size    :integer
 #  image_updated_at   :datetime
 #  is_deleted         :boolean
+#  original_code      :string(255)
 #
 
 class Post < ActiveRecord::Base
@@ -62,6 +63,7 @@ class Post < ActiveRecord::Base
     else
       process_unknown_embed(self, embed_link)
     end
+    post.original_code = embed_link
   end
 
   def embed_code

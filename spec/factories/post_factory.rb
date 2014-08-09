@@ -17,6 +17,7 @@
 #  image_file_size    :integer
 #  image_updated_at   :datetime
 #  is_deleted         :boolean
+#  original_code      :string(255)
 #
 
 FactoryGirl.define do

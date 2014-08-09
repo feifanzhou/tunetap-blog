@@ -1,6 +1,6 @@
 <%= render 'shared/search_bar' %>
 <% if @is_logged_in %>
-  <%= render 'shared/new_post' %>
+  <%= render 'shared/edit_post' %>
 <% end %>
 <div id='posts'>
   <% @posts.each do |p| %>

@@ -1,0 +1,35 @@
+<% post ||= Post.new %>
+<div class='Block PadWidth Tile CreatePost'>
+  <h1><%= post.id.blank? ? 'New' : 'Edit' %> Post</h1>
+  <div>
+    <div class='NewPostContentBlock' id='newPostImage'>
+      <input type='text' class='Borderless' id='imageInput' placeholder='Paste image link' value='<%= post.image_url %>' />
+    </div>
+    <div class='NewPostContentBlock' id='newPostPlayerEmbed'>
+      <input type='text' class='Borderless' id='embedInput' placeholder='Bop.fm, Soundcloud, Spotify, or YouTube embed' value='<%= post.original_code %>' />
+    </div>
+  </div>
+  <div class='NewPostContentBlock' id='newPostTitle'>
+    <textarea class='Borderless' id='titleInput' placeholder='Post title'><%= post.title_text %></textarea>
+    <p class='Hidden TagPrompt' id='titleInputTagPromptContainer'><a href='#' class='CreateTag' data-input-id='titleInput'>Create tag with "<span class='TagName' id='titleInputTagPrompt' data-input-id='titleInput'></span>"</a></p>
+    <div class='TagSuggestionsContainer' id='titleTagSuggestions'></div>
+  </div>
+  <div class='NewPostContentBlock'>
+    <div id='newPostContent'>
+      <textarea class='Borderless' id='contentInput' placeholder='Say something' rows='4'><%= post.body_text %></textarea>
+      <p class='Hidden TagPrompt' id='contentInputTagPromptContainer'><a href='#' class='CreateTag' data-input-id='contentInput'>Create tag with "<span class='TagName' id='contentInputTagPrompt' data-input-id='contentInput'></span>"</a></p>
+      <div class='TagSuggestionsContainer' id='contentTagSuggestions'></div>
+    </div>
+    <div id='newPostDownloadLink'>
+      <input type='text' class='Borderless' id='downloadInput' placeholder='Download link' value='<%= post.download_link %>' />
+    </div>
+    <div id='newPostTwitterText'>
+      <input type='text' class='Borderless' id='twitterInput' placeholder='Twitter default text' value='<%= post.twitter_text %>' />
+    </div>
+  </div>
+  <% if post.id.blank? %>
+    <button class='radius button tiny' id='newPostPublish'>Publish</button>
+  <% else %>
+    <button class='radius button tiny' id='updatePost' data-post-id='<%= post.id %>'>Update post</button>
+  <% end %>
+</div>
