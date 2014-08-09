@@ -56,6 +56,8 @@ gem 'jquery-rails'
 gem 'foundation-rails'
 gem 'local_time'
 
+gem 'rails_12factor'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
