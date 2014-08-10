@@ -75,7 +75,7 @@ class Tag < ActiveRecord::Base
   end
 
   include TagsHelper
-  def to_link
-    link_to_tag self
+  def to_link(new_page=false)
+    link_to_tag self, new_page
   end
 end

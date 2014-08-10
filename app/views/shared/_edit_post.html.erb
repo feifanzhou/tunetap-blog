@@ -30,6 +30,12 @@
       <input type='text' class='Borderless' id='tagsInput' placeholder='Tags (separated by spaces)' value='<%= post.tags_text %>' />
     </div>
   </div>
+  <p class='TagSuggestions'>
+    <strong>Available tags:</strong>
+    <% Tag.all.each do |tag| %>
+      <span class='Tag'><%= tag.to_link(true) %></span>
+    <% end %>
+  </p>
   <% if post.id.blank? %>
     <button class='radius button tiny' id='newPostPublish'>Publish</button>
   <% else %>
