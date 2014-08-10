@@ -10,12 +10,14 @@ class SearchController < ApplicationController
 
     tag_results = results.select { |r| r.is_a? Tag }
     artist_results = tag_results.select { |r| r.tag_type == 'artist' }
+    genre_results = tag_results.select { |r| r.tag_type == 'genre' }
     tag_results = tag_results.select { |r| r.tag_type == 'other' }
 
     writer_results = results.select { |r| r.is_a? Contributor }
     @grouped_results = {
       posts: post_results,
       artists: artist_results,
+      genres: genre_results,
       tags: tag_results,
       writers: writer_results
     }

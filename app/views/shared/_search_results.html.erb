@@ -1,9 +1,9 @@
 <% results ||= {} %>
 <div id='searchResults'>
-  <% if !query.blank? && results[:posts].blank? && results[:artists].blank? && results[:tags].blank? && results[:writers].blank? %>
+  <% if !query.blank? && results[:posts].blank? && results[:artists].blank? && results[:tags].blank? && results[:writers].blank? && results[:genres].blank? %>
     <p id='searchResultsBlank'>No results found</p>
   <% end %>
-  <% if !results[:posts].blank? %>
+  <% unless results[:posts].blank? %>
     <section id='postResults'>
       <h2>Posts</h2>
       <ul class='Results'>
@@ -13,7 +13,7 @@
       </ul>
     </section>
   <% end %>
-  <% if !results[:artists].blank? %>
+  <% unless results[:artists].blank? %>
     <section id='artistResults'>
       <h2>Artists</h2>
       <ul class='Results Grid'>
@@ -23,7 +23,17 @@
       </ul>
     </section>
   <% end %>
-  <% if !results[:tags].blank? %>
+  <% unless results[:genres].blank? %>
+    <section id='artistResults'>
+      <h2>Genres</h2>
+      <ul class='Results Grid'>
+        <% results[:genres].each do |g| %>
+          <%= render 'shared/search_tag_results', tag: g %>
+        <% end %>
+      </ul>
+    </section>
+  <% end %>
+  <% unless results[:tags].blank? %>
     <section id='tagResults'>
       <h2>Tags</h2>
       <ul class='Results Grid'>
@@ -33,7 +43,7 @@
       </ul>
     </section>
   <% end %>
-  <% if !results[:writers].blank? %>
+  <% unless results[:writers].blank? %>
     <section id='writerResults'>
       <h2>Writers</h2>
       <ul class='Results Grid'>
