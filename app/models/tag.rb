@@ -22,7 +22,7 @@ class Tag < ActiveRecord::Base
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
   validates :contributor_id, presence: true, numericality: { greater_than: 0 }
-  validates :tag_type, presence: true, inclusion: { in: ['artist', 'other'] }
+  validates :tag_type, presence: true, inclusion: { in: ['artist', 'genre', 'other'] }
 
   def creator
     return self.contributor
@@ -50,5 +50,9 @@ class Tag < ActiveRecord::Base
   extend TagsHelper
   def self.match_with(query)
     tags_like(query)
+  end
+
+  def as_json(options={})
+    super(options).merge(contributor_name: self.contributor.name, path_with_slug: self.path_with_slug, post_count: self.posts.count)
   end
 end

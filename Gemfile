@@ -55,6 +55,7 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'foundation-rails'
 gem 'local_time'
+gem 'react-rails'
 
 gem 'rails_12factor'
 

@@ -167,6 +167,11 @@ GEM
       ffi (>= 0.5.0)
     rdoc (4.1.1)
       json (~> 1.4)
+    react-rails (0.11.1.0)
+      execjs
+      rails (>= 3.1)
+      react-source (= 0.11.1)
+    react-source (0.11.1)
     rspec (3.0.0)
       rspec-core (~> 3.0.0)
       rspec-expectations (~> 3.0.0)
@@ -255,6 +260,7 @@ DEPENDENCIES
   pg_search
   rails (= 4.1.2.rc1)
   rails_12factor
+  react-rails
   rspec-its
   rspec-rails
   sass-rails (~> 4.0.3)

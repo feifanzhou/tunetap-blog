@@ -5,6 +5,7 @@ class TagsController < ApplicationController
       render status: :unauthorized, html: 'If you are a contributor, please <a href="/contributors/login">login</a>'.html_safe
     end
     @tags = Tag.all
+    @creator = active_contributor
   end
 
   def new
@@ -12,10 +13,14 @@ class TagsController < ApplicationController
   end
 
   def create
+    pp params
     t = Tag.new(tag_params)
     t.contributor = active_contributor
     t.save
-    redirect_to tags_path
+    respond_to do |format|
+      format.html { redirect_to tags_path }
+      format.json { render json: t }
+    end
   end
 
   def show
