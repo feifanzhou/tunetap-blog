@@ -26,6 +26,9 @@
     <div id='newPostTwitterText'>
       <input type='text' class='Borderless' id='twitterInput' placeholder='Twitter default text' value='<%= post.twitter_text %>' />
     </div>
+    <div id='tags'>
+      <input type='text' class='Borderless' id='tagsInput' placeholder='Tags (separated by spaces)' value='<%= post.tags_text %>' />
+    </div>
   </div>
   <% if post.id.blank? %>
     <button class='radius button tiny' id='newPostPublish'>Publish</button>

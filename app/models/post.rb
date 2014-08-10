@@ -24,7 +24,9 @@ class Post < ActiveRecord::Base
   belongs_to :contributor
   has_many :tagged_texts
   has_many :tag_ranges, through: :tagged_texts
-  has_many :tags, ->  { uniq }, through: :tag_ranges
+  # has_many :tags, ->  { uniq }, through: :tag_ranges
+  has_many :post_tags
+  has_many :tags, through: :post_tags
 
   has_attached_file :image
 
@@ -126,6 +128,16 @@ class Post < ActiveRecord::Base
     end
   end
 
+  def save_tags(tags_text, contributor)
+    return if tags_text.blank?
+    tags_array = tags_text.split
+    tags_array = tags_array.map { |t| t.chomp ',' if t }
+    tags_array.each do |t|
+      tag = Tag.create_or_find_by_name(t, contributor)
+      PostTag.create(post_id: self.id, tag_id: tag.id) unless PostTag.find_by_post_id_and_tag_id(self.id, tag.id)
+    end
+  end
+
   def self.posts_for_page(page = 1, posts_per_page = 10, show_deleted = false)
     p = show_deleted ? Post.all : Post.where('is_deleted = false')
     p.order(created_at: :desc).limit(posts_per_page).offset((page - 1) * posts_per_page).to_a
@@ -159,6 +171,10 @@ class Post < ActiveRecord::Base
   end
   def twitter_button
     twitter_button_for_post(self)
+  end
+
+  def tags_text
+    self.tags.inject('') { |mem, next_tag| mem + " #{ next_tag.name }" }
   end
 
   def vote_for_session(session)

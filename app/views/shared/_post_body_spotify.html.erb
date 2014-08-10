@@ -16,6 +16,7 @@
       <% if !post.body.blank? %>
         <%= post.body.to_html('p') %>
       <% end %>
+      <%= render 'shared/post_tags', post: post %>
       <p class='PostMeta'>Posted by <%= link_to post.author.name, post.author.path_with_slug %> &bull; <%= link_to local_time_ago(post.created_at), post.path_with_slug %><% if is_logged_in %> &bull; <%= link_to 'edit', edit_post_path(post) %><% end %></p>
     </div>
     <div class='PostEmbed'>

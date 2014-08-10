@@ -113,7 +113,7 @@ TagList = React.createClass
                 React.DOM.th
                   children: 'Creator'
                 React.DOM.th
-                  children: 'Type'
+                  children: 'Type (for search results)'
                 React.DOM.th
                   children: 'Posts'
               ]

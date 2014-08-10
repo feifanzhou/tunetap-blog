@@ -1,17 +1,8 @@
 <%= render 'shared/search_bar' %>
 <p class='Hidden' id='tags'><%= @tags.to_json %></p>
 <p class='Hidden' id='creator'><%= @creator.name %></p>
+
 <h1>Tags</h1>
 <section id='tagList'></section>
-<h1>Add new tag</h1>
-<%= form_for Tag.new do |t| %>
-  <%= t.text_field :name, placeholder: 'Tag name' %>
-  <div id='tagType'>
-    <h2>Tag type</h2>
-    <input type="radio" name="tag[tag_type]" value="other" id='tagTypeOther'><label for='tagTypeOther' checked>Other</label><br />
-    <input type='radio' name='tag[tag_type]' value='artist' id='tagTypeArtist'><label for='tagTypeArtist'>Artist</label>
-  </div>
-  <%= t.submit 'Add tag', class: 'radius button' %>
-<% end %>
+
 <%= render 'shared/admin_footer' %>
-<script src="http://fb.me/react-0.11.1<%= '.min' if Rails.env.production? %>.js"></script>

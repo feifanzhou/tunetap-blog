@@ -32,6 +32,7 @@ class PostsController < ApplicationController
     new_post.is_deleted = false
     new_post.save
     new_post.save_content(params[:post][:tagged_texts], params[:post][:tag_ranges], @author)
+    new_post.save_tags(params[:post][:tags_text], @author)
 
     @is_logged_in = false
     if !cookies.signed[:remember_token].blank?
@@ -55,6 +56,7 @@ class PostsController < ApplicationController
     post.process_player_embed(params[:post][:original_code])
     post.save
     post.save_content(params[:post][:tagged_texts], params[:post][:tag_ranges], @author)
+    post.save_tags(params[:post][:tags_text], @author)
     # post.save
     render json: { success: true, post_path: post_path(post) }
   end

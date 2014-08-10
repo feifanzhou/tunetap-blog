@@ -187,6 +187,7 @@ $('body').on('click', '#newPostPublish', ->
     image_url: $('#imageInput').val()
     download_link: $('#downloadInput').val()
     twitter_text: $('#twitterInput').val()
+    tags_text: $('#tagsInput').val()
   }
   $.ajax '/posts',
     type: 'POST'
@@ -225,6 +226,7 @@ $('body').on('click', '#updatePost', (e) ->
     download_link: $('#downloadInput').val()
     twitter_text: $('#twitterInput').val()
     is_deleted: false
+    tags_text: $('#tagsInput').val()
   }
   $.ajax ('/posts/' + e.target.getAttribute('data-post-id')),
     type: 'PATCH'
