@@ -9,6 +9,7 @@
 #  created_at     :datetime
 #  updated_at     :datetime
 #  tag_type       :string(255)
+#  is_deleted     :boolean
 #
 
 class Tag < ActiveRecord::Base
@@ -27,8 +28,8 @@ class Tag < ActiveRecord::Base
   validates :tag_type, presence: true, inclusion: { in: ['artist', 'genre', 'other'] }
 
   def self.from_name(name)
-    current_tag = Tag.where('lower(name) = ?', name.downcase).first
-    current_tag || Tag.new(name: name)
+    current_tag = Tag.where('lower(name) = ? AND is_deleted = false', name.downcase).first
+    current_tag || Tag.new(name: name, is_deleted: false)
   end
   def self.create_or_find_by_name(name, contributor, type='other')
     res = Tag.from_name(name)

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140810184548) do
+ActiveRecord::Schema.define(version: 20140810194708) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -115,6 +115,7 @@ ActiveRecord::Schema.define(version: 20140810184548) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "tag_type"
+    t.boolean  "is_deleted"
   end
 
   add_index "tags", ["contributor_id"], name: "index_tags_on_contributor_id", using: :btree

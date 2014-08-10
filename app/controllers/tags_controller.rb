@@ -4,7 +4,7 @@ class TagsController < ApplicationController
     if is_not_contributor
       render status: :unauthorized, html: 'If you are a contributor, please <a href="/contributors/login">login</a>'.html_safe
     end
-    @tags = Tag.all
+    @tags = Tag.where('is_deleted = false')
     @creator = active_contributor
   end
 
@@ -16,6 +16,7 @@ class TagsController < ApplicationController
     pp params
     t = Tag.new(tag_params)
     t.contributor = active_contributor
+    t.is_deleted = false
     t.save
     respond_to do |format|
       format.html { redirect_to tags_path }
@@ -40,6 +41,15 @@ class TagsController < ApplicationController
     respond_to do |format|
       # format.html
       format.naked { render partial: 'shared/tag_suggestions', formats: [:html], locals: { tags: @tags } }
+    end
+  end
+
+  def destroy
+    @tag = Tag.find(params[:id])
+    @tag.is_deleted = true
+    @tag.save
+    respond_to do |format|
+      format.json { render json: { success: 1 } }
     end
   end
 

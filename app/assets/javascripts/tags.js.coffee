@@ -3,6 +3,14 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 TagEntry = React.createClass
+  deleteTag: (e) ->
+    arrayIndex = e.currentTarget.getAttribute('data-index')
+    $.ajax ('/tags/' + e.currentTarget.getAttribute('data-tag-id')),
+      type: 'DELETE'
+      dataType: 'JSON'
+      error: (req, status, error) -> alert(error)
+      success: ((resp) ->
+        @props.removeTag(parseInt(arrayIndex))).bind(this)
   render: ->
     React.DOM.tr
       children: [
@@ -17,6 +25,14 @@ TagEntry = React.createClass
             React.DOM.a
               href: @props.tag.path_with_slug
               children: @props.tag.post_count
+        React.DOM.td
+          children:
+            React.DOM.a
+              href: '#'
+              'data-tag-id': @props.tag.id
+              'data-index': @props.index
+              onClick: @deleteTag
+              className: 'fa fa-trash-o'
       ]
 NewTag = React.createClass
   getInitialState: ->
@@ -99,8 +115,13 @@ TagList = React.createClass
     tags = @state.tags
     tags.push(tag)
     @setState({ tags: tags })
+  removeTag: (index) ->
+    tags = @state.tags
+    tags.splice(index, 1)
+    @setState({ tags: tags })
   render: ->
-    tagList = @state.tags.map((t) -> TagEntry({ tag: t }))
+    removeTag = @removeTag
+    tagList = @state.tags.map((t, index) -> TagEntry({ tag: t, index: index, removeTag: removeTag }))
     tagList.push(NewTag({ addTag: @addTag }))
     React.DOM.table
       children: [
@@ -116,6 +137,8 @@ TagList = React.createClass
                   children: 'Type (for search results)'
                 React.DOM.th
                   children: 'Posts'
+                React.DOM.th
+                  children: 'Delete'
               ]
           ]
         React.DOM.tbody

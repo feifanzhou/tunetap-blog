@@ -9,6 +9,7 @@
 #  created_at     :datetime
 #  updated_at     :datetime
 #  tag_type       :string(255)
+#  is_deleted     :boolean
 #
 
 require 'rails_helper'
