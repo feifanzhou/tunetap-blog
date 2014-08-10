@@ -156,14 +156,14 @@ selectTagSuggestion = ->
     length: tagLength
   }
   TagSug.tags.push(tagRange)
-$('body').on('focus', '#titleInput', saveTextCursorPosition)
-$('body').on('keydown', '#titleInput', handleTagFieldKeydown)
-$('body').on('keyup', '#titleInput', handleTagFieldKeyup)
-$('body').on('blur', '#titleInput', -> $('#titleTagSuggestions').html(''))
-$('body').on('focus', '#contentInput', saveTextCursorPosition)
-$('body').on('keydown', '#contentInput', handleTagFieldKeydown)
-$('body').on('keyup', '#contentInput', handleTagFieldKeyup)
-$('body').on('blur', '#contentInput', -> $('#contentTagSuggestions').html(''))
+# $('body').on('focus', '#titleInput', saveTextCursorPosition)
+# $('body').on('keydown', '#titleInput', handleTagFieldKeydown)
+# $('body').on('keyup', '#titleInput', handleTagFieldKeyup)
+# $('body').on('blur', '#titleInput', -> $('#titleTagSuggestions').html(''))
+# $('body').on('focus', '#contentInput', saveTextCursorPosition)
+# $('body').on('keydown', '#contentInput', handleTagFieldKeydown)
+# $('body').on('keyup', '#contentInput', handleTagFieldKeyup)
+# $('body').on('blur', '#contentInput', -> $('#contentTagSuggestions').html(''))
 $('body').on('mouseover', '.TagSuggestions li', (event) ->
   $('.TagSuggestions li.Selected').removeClass('Selected')
   $(event.target).addClass('Selected')
