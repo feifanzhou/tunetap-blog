@@ -3,7 +3,7 @@
 <div id='posts'>
   <h1><%= @contributor.name %>&#39;s posts</h1>
   <% @posts.each do |p| %>
-    <%= render_post_partial(p, false, @is_logged_in) %>
+    <%= render_post_partial(p, nil, false, @is_logged_in) %>
   <% end %>
 </div>
 <% if @page_count > 1 %>

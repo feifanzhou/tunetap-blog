@@ -42,7 +42,7 @@ class Contributor < ActiveRecord::Base
   end
   
   def posts_for_page(page = 1, posts_per_page = 10, show_deleted = false)
-    p = show_deleted ? self.posts : self.posts.where('is_deleted = false')
+    p = show_deleted ? self.posts.includes(:tags) : self.posts.where('is_deleted = false').includes(:tags)
     p.limit(posts_per_page).offset((page - 1) * posts_per_page)
   end
 
