@@ -139,7 +139,7 @@ class Post < ActiveRecord::Base
   end
 
   def self.posts_for_page(page = 1, posts_per_page = 10, show_deleted = false)
-    p = show_deleted ? Post.all : Post.where('is_deleted = false')
+    p = show_deleted ? Post.all : Post.where('is_deleted = false').includes(:tags, :contributor)
     p.order(created_at: :desc).limit(posts_per_page).offset((page - 1) * posts_per_page).to_a
   end
 
