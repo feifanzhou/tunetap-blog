@@ -56,6 +56,7 @@ gem 'jquery-rails'
 gem 'foundation-rails'
 gem 'local_time'
 gem 'react-rails'
+gem 'slack-post'
 
 gem 'rails_12factor'
 

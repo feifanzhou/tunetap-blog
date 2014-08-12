@@ -1,3 +1,4 @@
+require 'slack/post'
 class PostsController < ApplicationController
   def index
     @page = params[:index] ? params[:index].to_i : 1
@@ -38,6 +39,15 @@ class PostsController < ApplicationController
     if !cookies.signed[:remember_token].blank?
       @is_logged_in = Contributor.exists?(remember_token: cookies.signed[:remember_token])
     end
+
+    message = "New post from #{ @author.name }: #{ full_path_for_post(new_post) }"
+    Slack::Post.configure(
+      subdomain: 'tunetap',
+      token: 'lljf8ejjZ815ADXV9wVsMe25',
+      username: 'Camelback Post'
+    )
+    Slack::Post.post message, '#camelback'
+
     render_post_partial(new_post, nil, false, @is_logged_in)
   end
 
