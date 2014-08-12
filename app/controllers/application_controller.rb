@@ -8,7 +8,8 @@ class ApplicationController < ActionController::Base
   def set_or_update_session
     sesh = active_session
     if sesh.blank?
-      save_session_cookie(Session.create(ip_address: request.remote_ip))
+      p '========= Sesh is blank'
+      save_session_cookie(Session.create(ip_address: request.remote_ip, last_active: DateTime.now))
     else
       sesh.last_active = DateTime.now
       sesh.save
