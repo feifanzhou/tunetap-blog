@@ -29,8 +29,8 @@ module PostsHelper
       render partial: 'shared/post_body_youtube', formats: [:html], locals: { post: post, vote: vote, is_new_post: is_new_post, is_logged_in: is_logged_in }
     elsif post.player_type == 'vimeo'
       render partial: 'shared/post_body_vimeo', formats: [:html], locals: { post: post, vote: vote, is_new_post: is_new_post, is_logged_in: is_logged_in }
-    # else
-    #   render html: '<p>Invalid post embed format</p>'.html_safe
+    else
+      p '======== Invalid post format, cannot render partial'
     end
   end
 
