@@ -28,6 +28,7 @@ class TaggedText < ActiveRecord::Base
   end
 
   include TaggedTextsHelper
+  # FIXME — Improve loading performance here?
   def to_html(in_tag = 'span')
     return tagged_text_to_html(self, in_tag)
   end

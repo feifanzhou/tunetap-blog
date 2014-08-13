@@ -13,7 +13,6 @@ class TagsController < ApplicationController
   end
 
   def create
-    pp params
     t = Tag.new(tag_params)
     t.contributor = active_contributor
     t.is_deleted = false
