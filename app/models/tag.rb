@@ -29,7 +29,7 @@ class Tag < ActiveRecord::Base
 
   def self.from_name(name)
     current_tag = Tag.where('lower(name) = ? AND is_deleted = false', name.downcase).first
-    current_tag || Tag.new(name: name, is_deleted: false)
+    current_tag || Tag.new(name: name.strip, is_deleted: false)
   end
   def self.create_or_find_by_name(name, contributor, type='other')
     res = Tag.from_name(name)

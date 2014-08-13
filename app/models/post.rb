@@ -130,10 +130,10 @@ class Post < ActiveRecord::Base
 
   def save_tags(tags_text, contributor)
     return if tags_text.blank?
-    tags_array = tags_text.split
-    tags_array = tags_array.map { |t| t.chomp ',' if t }
+    tags_array = tags_text.split(',')
     tags_array.each do |t|
-      tag = Tag.create_or_find_by_name(t, contributor)
+      clean_tag = t.strip
+      tag = Tag.create_or_find_by_name(clean_tag, contributor)
       PostTag.create(post_id: self.id, tag_id: tag.id) unless PostTag.find_by_post_id_and_tag_id(self.id, tag.id)
     end
   end
