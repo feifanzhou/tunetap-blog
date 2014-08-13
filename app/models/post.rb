@@ -174,7 +174,7 @@ class Post < ActiveRecord::Base
   end
 
   def tags_text
-    self.tags.inject('') { |mem, next_tag| mem + " #{ next_tag.name }" }
+    self.tags.inject('') { |mem, next_tag| mem + ", #{ next_tag.name }" }
   end
 
   def vote_for_session(session)
