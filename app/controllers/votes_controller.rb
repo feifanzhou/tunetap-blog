@@ -7,7 +7,6 @@ class VotesController < ApplicationController
     end
     current_vote.is_deleted = params[:is_deleted]
     current_vote.is_upvote = params[:is_upvote]
-    pp params
     current_vote.save
     render json: { success: true }
   end
