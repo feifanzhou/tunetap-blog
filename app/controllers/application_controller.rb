@@ -13,7 +13,8 @@ class ApplicationController < ActionController::Base
     p "Remote IP address #{ ip } is not on block list"
     @active_session = active_session
     if @active_session.blank?
-      save_session_cookie(Session.create(ip_address: ip, last_active: DateTime.now))
+      @active_session = Session.create(ip_address: ip, last_active: DateTime.now)
+      save_session_cookie(@active_session)
     else
       @active_session.last_active = DateTime.now
       @active_session.save
