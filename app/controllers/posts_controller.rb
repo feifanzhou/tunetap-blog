@@ -5,7 +5,7 @@ class PostsController < ApplicationController
     @page_count = (Post.count / 10.0).ceil
     @page_path_base = '/page'
     @posts = Post.posts_for_page(@page, 10).select { |post| !post.blank? }
-    @votes = Vote.where('session_id=(?) AND post_id IN (?)', active_session.id, @posts.map(&:id))
+    @votes = Vote.where('session_id=(?) AND post_id IN (?)', @active_session.id, @posts.map(&:id))
     @is_logged_in = false
     if !cookies.signed[:remember_token].blank?
       @is_logged_in = Contributor.exists?(remember_token: cookies.signed[:remember_token])
@@ -14,7 +14,7 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
-    @vote = Vote.find_by_post_id_and_session_id(params[:id], active_session.id)
+    @vote = Vote.find_by_post_id_and_session_id(params[:id], @active_session.id)
     @is_logged_in = false
     if !cookies.signed[:remember_token].blank?
       @is_logged_in = Contributor.exists?(remember_token: cookies.signed[:remember_token])

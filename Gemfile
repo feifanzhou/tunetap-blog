@@ -29,6 +29,7 @@ group :development do
   gem 'annotate'
   gem 'guard-livereload'
   gem 'bullet'
+  gem 'rack-mini-profiler'
 end
 
 group :test do
