@@ -19,7 +19,9 @@ class Contributor < ActiveRecord::Base
   # into separate module
   multisearchable against: :name
 
-  has_many :posts
+  def posts
+    Post.where(contributor_id: self.id, is_deleted: false)
+  end
   has_many :tags
   has_many :sent_invitations, class_name: 'Invitation', foreign_key: 'inviter_id'
   has_one :received_invitation, class_name: 'Invitation', foreign_key: 'recipient_id'
@@ -42,7 +44,7 @@ class Contributor < ActiveRecord::Base
   end
   
   def posts_for_page(page = 1, posts_per_page = 10, show_deleted = false)
-    p = show_deleted ? self.posts.includes(:tags) : self.posts.where('is_deleted = false').includes(:tags)
+    p = show_deleted ? self.posts.includes(:tags) : self.posts.where('is_deleted = false').includes(:tags, :contributor)
     p.limit(posts_per_page).offset((page - 1) * posts_per_page)
   end
 

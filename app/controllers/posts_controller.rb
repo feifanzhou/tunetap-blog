@@ -2,7 +2,7 @@ require 'slack/post'
 class PostsController < ApplicationController
   def index
     @page = params[:index] ? params[:index].to_i : 1
-    @page_count = (Post.count / 10.0).ceil
+    @page_count = (Post.active_count / 10.0).ceil
     @page_path_base = '/page'
     @posts = Post.posts_for_page(@page, 10).select { |post| !post.blank? }
     as = @active_session || active_session

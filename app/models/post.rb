@@ -42,6 +42,10 @@ class Post < ActiveRecord::Base
     return 'F16214'
   end
 
+  def self.active_count
+    Post.where(is_deleted: false).count
+  end
+
   def path_with_slug
     if self.title.blank?
       return "/posts/#{ self.id }"
