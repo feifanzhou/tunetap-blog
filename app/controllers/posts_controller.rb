@@ -47,7 +47,7 @@ class PostsController < ApplicationController
       token: 'lljf8ejjZ815ADXV9wVsMe25',
       username: 'Camelback Post'
     )
-    Slack::Post.post message, '#camelback'
+    Slack::Post.post message, '#camelback' if Rails.env.production?
 
     render_post_partial(new_post, nil, false, @is_logged_in)
   end
@@ -84,6 +84,13 @@ class PostsController < ApplicationController
 
   private
   def post_params
-    params.require(:post).permit(:image_url, :download_link, :twitter_text, :facebook_text, :is_deleted, :original_code)
+    params.require(:post).permit(
+      :image_url,
+      :download_link, 
+      :twitter_text, 
+      :facebook_text, 
+      :is_deleted, 
+      :original_code
+    )
   end
 end

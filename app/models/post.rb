@@ -87,10 +87,10 @@ class Post < ActiveRecord::Base
     title = nil
     body = nil
     tagged_texts.each do |tt|
-      tagged_text = tt[1]
-      if tagged_text[:content_type] == 'title'
+      tagged_text = tt[1].to_unsafe_hash
+      if tagged_text['content_type'] == 'title'
         title = TaggedText.new(tagged_text)
-      elsif tagged_text[:content_type] == 'body'
+      elsif tagged_text['content_type'] == 'body'
         body = TaggedText.new(tagged_text)
       end
     end
