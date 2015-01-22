@@ -191,7 +191,7 @@
     }
   }
   &.NewPost {
-    border: 3px solid #F6921E;
+    border: 3px solid #F16214;
     height: 10px;
     opacity: 0.1;
   }
@@ -199,7 +199,7 @@
     display: inline-block;
     margin-right: 0.5em;
     .VoteCount {
-      // color: #F6921E;
+      // color: #F16214;
       font-weight: 600;
       margin-right: 0.2em;
     }
@@ -209,11 +209,11 @@
       margin-right: 0.5em;
       @include vendor-prefix(transition, color 0.25s);
       &:hover {
-        color: #F6921E;
+        color: #F16214;
         cursor: pointer;
       }
       &.VoteActive {
-        color: #F6921E;
+        color: #F16214;
       }
     }
   }
@@ -242,15 +242,15 @@
       li {
         padding: 0.35em;
         &.Selected {
-          background: #F6921E;
+          background: #F16214;
           color: white;
         }
       }
     }
   }
   .TagHighlight {
-    background-color: transparentize(#F6921E, 0.9);
-    border: 1px solid transparentize(#F6921E, 0.75);
+    background-color: transparentize(#F16214, 0.9);
+    border: 1px solid transparentize(#F16214, 0.75);
     border-radius: 3px;
     position: absolute;
   }

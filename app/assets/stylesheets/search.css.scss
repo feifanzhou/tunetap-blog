@@ -38,7 +38,7 @@
     padding: 0.75rem;
     @include vendor-prefix(transition, background 0.25s);
     &:hover {
-      background: transparentize(#F6921E, 0.9);
+      background: transparentize(#F16214, 0.9);
     }
     &:last-child {
       border-bottom: none;
@@ -52,7 +52,7 @@
       overflow: hidden;
     }
     li {
-      border: 1px solid transparentize(#F6921E, 0.5);
+      border: 1px solid transparentize(#F16214, 0.5);
       border-radius: 3px;
       color: #666;
     }
