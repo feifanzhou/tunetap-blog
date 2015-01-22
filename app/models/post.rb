@@ -36,10 +36,10 @@ class Post < ActiveRecord::Base
   # FIXME — Make sure post has title
 
   def self.embed_color
-    return 'F6921E'
+    return 'F16214'
   end
   def embed_color
-    return 'F6921E'
+    return 'F16214'
   end
 
   def path_with_slug
