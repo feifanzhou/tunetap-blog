@@ -32,7 +32,7 @@ class Post < ActiveRecord::Base
 
   validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
   validates :contributor_id, presence: true, numericality: { greater_than: 0 }
-  validates :player_type, presence: true, inclusion: { in: ['soundcloud', 'bopfm', 'spotify', 'youtube', 'vimeo', 'unknown'] }
+  # validates :player_type, presence: true, inclusion: { in: ['soundcloud', 'bopfm', 'spotify', 'youtube', 'vimeo', 'unknown'] }
   # FIXME — Make sure post has title
 
   def self.embed_color
@@ -56,6 +56,7 @@ class Post < ActiveRecord::Base
 
   include PostsHelper
   def process_player_embed(embed_link)
+    return if embed_link.blank?
     if embed_link.include? 'bop.fm'
       process_bop_embed(self, embed_link)
     elsif embed_link.include? 'soundcloud.com'

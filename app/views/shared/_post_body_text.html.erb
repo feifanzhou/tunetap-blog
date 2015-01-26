@@ -1,0 +1,38 @@
+<% classString = 'Block PadWidth Tile TextPost' %>
+<% classString << ' NewPost' if is_new_post %>
+<div class='<%= classString %>'>
+  <% if is_logged_in %>
+    <span class='DeletePost' data-post-id='<%= post.id %>'>&times;</span>
+    <span class='EditPost'><a href='<%= edit_post_path(post) %>' class='fa fa-pencil'></a></span>
+  <% end %>
+  <% if is_logged_in %>
+    <% class_string = post.is_deleted ? 'PostDeleted' : 'PostDeleted Hidden' %>
+    <div class='<%= class_string %>'>Post deleted. <a href='#' class='UndoPostDelete' data-post-id='<%= post.id %>'>Undo.</a></div>
+  <% end %>
+  <div class='PostContent <%= "Faded" if post.is_deleted %>'>
+    <div class='PostBody'>
+      <%= image_tag(post.image_url, class: 'PostImage') %>
+      <div class='PostText'>
+        <%= post.title.to_html('h1') %>
+        <% if !post.body.blank? %>
+          <%= post.body.to_html('p') %>
+        <% end %>
+      </div>
+      <%= render 'shared/post_tags', post: post %>
+      <hr />
+      <p class='PostMeta'>Posted by <%= link_to post.author.name, post.author.path_with_slug %> &bull; <%= link_to local_time_ago(post.created_at), post.path_with_slug %><% if is_logged_in %> &bull; <%= link_to 'edit', edit_post_path(post) %><% end %></p>
+      <p>Want to be notified about the next post? Enter your email and we'll let you know when it's out:</p>
+      <div class='row' id='subscribe'>
+        <span class='small-12 medium-8 large-9 columns'>
+          <input type='email' id='subscribeEmail' data-post-id='<%= post.id %>' placeholder='you@example.com' />
+        </span>
+        <span class='small-12 medium-4 large-3 columns'>
+          <button class='small button' id='subscribeButton'>Subscribe</button>
+        </span>
+      </div>
+      <div data-alert class='radius success alert-box Hidden' id='subscribeSuccess'><span class='fa fa-check'></span> Got it! We'll send you a message when we have a new post for you.</div>
+      <div data-alert class='radius alert alert-box Hidden' id='subscribeFail'><span class='fa fa-frown-o'></span> Uh oh &mdash; Something didn't work right. Please try again or <a href='mailto:thetap@tunetap.com'>send&nbsp;us&nbsp;a&nbsp;message</a>.</div>
+    </div>
+    <%= render 'shared/post_footer', post: post, vote: vote, is_logged_in: is_logged_in %>
+  </div>
+</div>

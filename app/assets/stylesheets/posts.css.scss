@@ -331,3 +331,22 @@
     margin-top: 1em;
   }
 }
+
+.TextPost {
+  h1 {
+    margin-top: 1em;
+  }
+  #subscribe {
+    > .columns:first-child {
+      padding-left: 0;
+    }
+    .button {
+      padding: 0.7rem 1.25rem;
+      width: 100%;
+    }
+  }
+  .alert-box a {
+    color: white;
+    font-weight: 700;
+  }
+}

@@ -353,3 +353,25 @@ $('body').on('click', '.PostDownvote', (e) ->
   sendVote(postID, false, isDeleted)
   toggleVoteDisplay(e.target, isDeleted)
 )
+
+# ========== Subscribing to posts ==========
+$('body').on('click', '#subscribeButton', ->
+  $('#subscribeFail').slideUp()
+  field = document.getElementById('subscribeEmail')
+  postID = field.getAttribute('data-post-id')
+  email = field.value
+  $.ajax '/subscribers',
+    type: 'POST'
+    dataType: 'JSON'
+    data: {
+      subscriber: {
+        post_id: postID
+        email: email
+      }
+    }
+    success: ->
+      $('#subscribe').slideUp()
+      $('#subscribeSuccess').slideDown()
+    error: ->
+      $('#subscribeFail').slideDown()
+)

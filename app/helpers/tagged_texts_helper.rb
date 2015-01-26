@@ -27,6 +27,8 @@ module TaggedTextsHelper
       body_pieces[i] = link_to_tag(ranges[i / 2].tag)
     end
     body = body_pieces.join('')
+    body.gsub!("\n\n", '</p><p>')
+    body.gsub!("\n", '<br />')
     closer = "</#{ html_tag }>"
     return "#{ opener }#{ body }#{ closer }".html_safe
   end
