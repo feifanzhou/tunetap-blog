@@ -16,7 +16,7 @@
         <%= post.embed_code %>
         <% unless post.download_link.blank? %>
           <span class='DownloadButton'>
-            <a href='<%= post.download_link %>' class='radius button' target download>Download</a>
+            <a href='<%= post.download_link %>' class='radius button Download' data-id='<%= post.id %>' target download>Download</a>
           </span>
         <% end %>
       </span>
