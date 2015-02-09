@@ -15,6 +15,7 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
+    @post.increment_view_count!
     @vote = Vote.find_by_post_id_and_session_id(params[:id], @active_session.id)
     @is_logged_in = false
     if !cookies.signed[:remember_token].blank?

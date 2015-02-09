@@ -7,7 +7,7 @@
 #  image_url          :string(255)
 #  player_embed       :string(255)
 #  player_type        :string(255)
-#  download_link      :string(255)
+#  download_link      :text
 #  twitter_text       :string(255)
 #  facebook_text      :string(255)
 #  created_at         :datetime
@@ -27,6 +27,7 @@ class Post < ActiveRecord::Base
   # has_many :tags, ->  { uniq }, through: :tag_ranges
   has_many :post_tags
   has_many :tags, through: :post_tags
+  has_many :visits
 
   has_attached_file :image
 
@@ -194,5 +195,14 @@ class Post < ActiveRecord::Base
   end
   def downvote_count
     Vote.where('post_id=(?) AND is_deleted=false AND is_upvote=false', self.id).count
+  end
+
+  def increment_view_count!
+    current_action = Action.where(medium: 'visit', post_id: self.id).where('created_at >= ?', 24.hours.ago)
+    if current_action.length == 0
+      Action.create(medium: 'visit', post_id: self.id, count: 1)
+    else
+      current_action.first.increment!(:count)
+    end
   end
 end
