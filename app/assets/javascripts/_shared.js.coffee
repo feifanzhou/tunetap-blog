@@ -14,5 +14,4 @@ search() if $('#searchField').length > 0 && $('#searchField').val().length > 0
 
 $('body').on('mousedown', '.button.Download', (e) ->
   postID = e.target.getAttribute('data-id')
-  alert('Downloading from post ' + postID)
 )

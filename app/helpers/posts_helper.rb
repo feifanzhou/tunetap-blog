@@ -51,9 +51,10 @@ module PostsHelper
     color_index = new_link.index('color=')
     if color_index.blank?
       amp_index = new_link.index('&amp;')
-      color_str = "&amp;color=#{ Post.embed_color }"
+      color_str = "&amp;color=#{ Post.embed_color }&amp;enable_api=true"
       new_link.insert(amp_index, color_str)
     else
+      new_link.insert(color_index, 'enable_api=true&amp;')
       color_index += 6
       color_end_index = color_index + 6
       new_link[color_index...color_end_index] = Post.embed_color

@@ -79,7 +79,7 @@ class Post < ActiveRecord::Base
       return self.player_embed.html_safe
     elsif self.player_type == 'soundcloud'
       height = self.download_link.blank? ? 220 : 180
-      return "<iframe width='100%' height='#{ height }' scrolling='no' frameborder='no' src='#{ self.player_embed }'></iframe>".html_safe
+      return "<iframe data-post-id='#{ self.id }' width='100%' height='#{ height }' scrolling='no' frameborder='no' src='#{ self.player_embed }'></iframe>".html_safe
     elsif self.player_type == 'spotify'
       return "<iframe src='https://embed.spotify.com/?uri=#{ self.player_embed }&theme=white' width='280' height='360' frameborder='0' allowtransparency='true'></iframe>".html_safe
     elsif self.player_type == 'youtube'

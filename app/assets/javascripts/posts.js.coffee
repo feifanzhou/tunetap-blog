@@ -375,3 +375,18 @@ $('body').on('click', '#subscribeButton', ->
     error: ->
       $('#subscribeFail').slideDown()
 )
+
+# ========== Soundcloud API ==========
+iframes = $('.PostEmbed iframe')
+# for iframe in iframes
+
+iframe = $('.PostEmbed iframe')[0]
+widget = SC.Widget(iframe)
+widget.bind(SC.Widget.Events.READY, ->
+  widget.bind(SC.Widget.Events.PLAY, (e, t) ->
+    if e == widget
+      console.log('Equal')
+    else
+      console.log('Not equal')
+  )
+)

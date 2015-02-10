@@ -15,6 +15,7 @@
 //= require foundation
 //= require local_time
 //= require caret-position
+//= require soundcloud-api
 //= require_tree .
 
 $(function(){ $(document).foundation(); });
