@@ -1,5 +1,6 @@
 class SubscribersController < ApplicationController
   def create
+    p "====== Subscribers create: #{ params } (#{ subscribe_params })"
     params = subscriber_params
     post = Post.find params[:post_id]
     message = "Subscriber from Post #{ post.id } (#{ post.title_text }): #{ params[:email] }"
